@@ -29,8 +29,8 @@ const webPackages: PricingPackage[] = [
     title: "SITIO EMPRESARIAL",
     price: 300,
     paymentType: "Pago único",
-    image: "/portafolio.webp",
-    previewImage: "/landing1.webp",
+    image: "/sitio/home.webp",
+    previewImage: "/sitio/home.webp",
     deliveryTime: "Entrega: 7 - 10 días hábiles",
     features: [
       { text: "Hasta 5 páginas", included: true },
@@ -43,9 +43,11 @@ const webPackages: PricingPackage[] = [
       { text: "No incluye hosting", included: false },
     ],
     gallery: [
-      "/landing1.webp",
-      "/mockups/wishway.jpg",
-      "/portafolio.webp"
+      "/sitio/home.webp",
+      "/sitio/servicios.webp",
+      "/sitio/especialidades.webp",
+      "/sitio/medicos.webp",
+      "/sitio/contactos.webp"
     ]
   },
   {
