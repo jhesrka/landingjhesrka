@@ -209,17 +209,17 @@ export const PricingSection = ({ title, icon, packages }: PricingSectionProps) =
                 </div>
                 
                 {/* Mockup Image in the top right corner of the card */}
-                <div className="w-[120px] h-[90px] relative hidden lg:block opacity-80 group-hover:opacity-100 transition-opacity">
-                  <Image src={pkg.image} alt={pkg.title} fill className="object-contain drop-shadow-[0_10px_20px_rgba(0,210,255,0.15)]" />
+                <div className="w-[160px] h-[140px] relative hidden lg:block opacity-90 group-hover:opacity-100 transition-all duration-300 group-hover:scale-105 mr-4 mt-2">
+                  <Image src={pkg.image} alt={pkg.title} fill className="object-contain object-top drop-shadow-[0_10px_20px_rgba(0,210,255,0.2)]" />
                 </div>
-                <button className="absolute top-0 right-0 text-[#8995A9] hover:text-white transition-colors">
-                  <Heart size={18} />
+                <button className="absolute top-0 right-0 text-[#8995A9] hover:text-[#FABB18] transition-colors z-20">
+                  <Heart size={20} />
                 </button>
               </div>
               
               {/* Mobile image version */}
-              <div className="w-full h-[120px] relative lg:hidden mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
-                 <Image src={pkg.image} alt={pkg.title} fill className="object-contain" />
+              <div className="w-full h-[180px] relative lg:hidden mb-6 opacity-90 group-hover:opacity-100 transition-opacity rounded-lg overflow-hidden">
+                 <Image src={pkg.image} alt={pkg.title} fill className="object-contain object-top" />
               </div>
 
               {/* Features List */}
