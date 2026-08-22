@@ -34,15 +34,18 @@ export async function POST(req: Request) {
       amountWithTax: 0,
       tax: 0,
       clientTransactionId: transactionId,
+      storeId: storeSettings.payphoneStoreId.trim(),
       currency: "USD",
       reference: `Compra en JHESRKA - ${items.length} items`
     };
+
+    console.log("Enviando a PayPhone:", JSON.stringify(payphonePayload));
 
     // 3. Llamar a la API de PayPhone para preparar el pago
     const response = await fetch("https://pay.payphonetodoesposible.com/api/button/Prepare", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${storeSettings.payphoneToken}`,
+        "Authorization": `Bearer ${storeSettings.payphoneToken.trim()}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify(payphonePayload)
