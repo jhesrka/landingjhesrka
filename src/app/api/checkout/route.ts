@@ -22,16 +22,19 @@ export async function POST(req: Request) {
     // 2. Preparar el payload para PayPhone
     const amountInCents = Math.round(total * 100);
     const transactionId = crypto.randomUUID().replace(/-/g, '').substring(0, 20);
+    
+    // Asegurar que la URL base no tenga un slash al final
+    const baseUrl = (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000').replace(/\/$/, '');
 
     const payphonePayload = {
-      responseUrl: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/checkout/success`,
-      cancellationUrl: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/tienda`,
+      responseUrl: `${baseUrl}/checkout/success`,
+      cancellationUrl: `${baseUrl}/tienda`,
       amount: amountInCents,
       amountWithoutTax: amountInCents,
       amountWithTax: 0,
       tax: 0,
       clientTransactionId: transactionId,
-      storeId: storeSettings.payphoneStoreId,
+      currency: "USD",
       reference: `Compra en JHESRKA - ${items.length} items`
     };
 
