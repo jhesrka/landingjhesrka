@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     question: "¿Incluyen dominio y hosting?",
-    answer: "Sí, todos nuestros planes iniciales incluyen configuración de dominio y hosting para el primer año.",
+    answer: "Te asesoramos en la compra y realizamos toda la configuración de tu dominio y hosting. El costo de estos servicios lo asume el cliente y se paga directamente al proveedor (no está incluido en el precio de la web).",
   },
   {
     question: "¿Dan soporte después de entregar el proyecto?",

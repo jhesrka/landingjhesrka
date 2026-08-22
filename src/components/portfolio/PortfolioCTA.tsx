@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 
 export const PortfolioCTA = () => {
   return (
@@ -22,14 +23,12 @@ export const PortfolioCTA = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
-              <a 
-                href="https://wa.me/593991234567" 
-                target="_blank" 
-                rel="noreferrer"
+              <WhatsAppLink 
+                message="Hola Jhesrka Developer, tengo un proyecto en mente y me gustaría asesoría."
                 className="w-full sm:w-auto bg-[#FABB18] text-[#01040A] px-6 py-3 rounded-xl font-bold text-[14px] hover:bg-white transition-all flex items-center justify-center gap-2"
               >
                 <FaWhatsapp size={20} /> Escríbenos por WhatsApp
-              </a>
+              </WhatsAppLink>
               <a 
                 href="#contacto" 
                 className="w-full sm:w-auto bg-transparent border border-white/20 text-white px-6 py-3 rounded-xl font-bold text-[14px] hover:border-[#00D2FF] hover:text-[#00D2FF] transition-all flex items-center justify-center gap-2"

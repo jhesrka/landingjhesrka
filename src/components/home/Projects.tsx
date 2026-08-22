@@ -1,9 +1,9 @@
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { db } from "@/db";
 import { projects as projectsSchema } from "@/db/schema";
 import { desc } from "drizzle-orm";
+import { ProjectsClient } from "./ProjectsClient";
 
 export const Projects = async () => {
   let dbProjects: any[] = [];
@@ -15,14 +15,27 @@ export const Projects = async () => {
   }
 
   // Select 4 random projects
-  let projects = dbProjects.length > 0 
+  type ProjectData = {
+    title: string;
+    category: string;
+    categoryId: string;
+    image: string;
+    previewImage?: string;
+    gallery?: string[];
+    link: string;
+  };
+
+  let projects: ProjectData[] = dbProjects.length > 0 
     ? [...dbProjects]
         .sort(() => 0.5 - Math.random())
         .slice(0, 4)
         .map(p => ({
           title: p.title,
-          category: p.subtitle,
-          image: p.imageUrl,
+          category: p.subtitle || "",
+          categoryId: p.categoryId || "todos",
+          image: p.imageUrl || "",
+          previewImage: p.previewImageUrl || "",
+          gallery: Array.isArray(p.gallery) ? p.gallery : [],
           link: p.link || "#",
         }))
     : [];
@@ -30,10 +43,36 @@ export const Projects = async () => {
   // Default fallback if DB is empty or fails
   if (projects.length === 0) {
     projects = [
-      { title: "ATUCUCHO SHOP", category: "Super App / Marketplace", image: "/destacado1.webp", link: "#" },
-      { title: "WISHWAY", category: "Plataforma de Rifas Online", image: "/mockups/wishway.jpg", link: "#" },
-      { title: "OLA PREMIUM", category: "Transporte Ejecutivo", image: "/mockups/ola.jpg", link: "#" },
-      { title: "CV3 TALLER", category: "Sitio Web Automotriz", image: "/mockups/cv3.jpg", link: "#" },
+      { 
+        title: "ATUCUCHO SHOP", 
+        category: "Super App / Marketplace", 
+        categoryId: "aplicaciones-web",
+        image: "/destacado1.webp", 
+        link: "#" 
+      },
+      { 
+        title: "WISHWAY", 
+        category: "Plataforma de Rifas Online", 
+        categoryId: "sistemas",
+        image: "/mockups/wishway.jpg", 
+        gallery: ["/mockups/wishway.jpg", "/destacado1.webp"],
+        link: "#" 
+      },
+      { 
+        title: "OLA PREMIUM", 
+        category: "Transporte Ejecutivo", 
+        categoryId: "aplicaciones-web",
+        image: "/mockups/ola.jpg", 
+        link: "#" 
+      },
+      { 
+        title: "CV3 TALLER", 
+        category: "Sitio Web Automotriz", 
+        categoryId: "paginas-web",
+        image: "/mockups/cv3.jpg", 
+        previewImage: "/landing1.webp",
+        link: "#" 
+      },
     ];
   }
 
@@ -73,62 +112,17 @@ export const Projects = async () => {
 
           {/* Content Area */}
           <div className="relative z-20">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-[20px] md:text-[24px] font-bold text-white tracking-wide uppercase">
-              PROYECTOS DESTACADOS
-            </h2>
-            <Link href="/portafolio#proyectos" className="text-[#00D2FF] hover:text-[#FABB18] text-[10px] md:text-[11px] font-bold flex items-center gap-2 transition-colors uppercase tracking-widest">
-              VER TODOS LOS PROYECTOS <ArrowRight size={14} />
-            </Link>
-          </div>
-
-          {/* Grid Container for Cards */}
-          <div className="relative group">
-            
-            {/* 4-Column Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-              {projects.map((project, idx) => (
-                <div 
-                  key={idx} 
-                  className="bg-[#040A15] rounded-xl overflow-hidden border border-[#1A2333]/50 flex flex-col hover:border-white/20 transition-all shadow-lg"
-                >
-                  {/* Image Area */}
-                  <div className="h-[220px] md:h-[280px] w-full relative bg-black overflow-hidden flex-shrink-0">
-                    <Image 
-                      src={project.image} 
-                      alt={project.title} 
-                      fill 
-                      className="object-cover object-top hover:scale-105 transition-all duration-700"
-                    />
-                    {/* Bottom gradient to blend into content */}
-                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#040A15] to-transparent" />
-                  </div>
-
-                  {/* Content Area */}
-                  <div className="px-5 pb-6 flex flex-col flex-grow bg-[#040A15] relative z-10 -mt-8">
-                    <h3 className="text-[14px] md:text-[15px] font-extrabold text-white uppercase tracking-wider mb-1">
-                      {project.title}
-                    </h3>
-                    <p className="text-[11px] md:text-[12px] text-[#8995A9] mb-5">
-                      {project.category}
-                    </p>
-                    
-                    <div className="mt-auto">
-                      <a 
-                        href={project.link} 
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 text-white text-[10px] md:text-[11px] font-bold hover:bg-white hover:text-black transition-colors w-max"
-                      >
-                        Ver proyecto <ArrowRight size={12} />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-[20px] md:text-[24px] font-bold text-white tracking-wide uppercase">
+                PROYECTOS DESTACADOS
+              </h2>
+              <Link href="/portafolio#proyectos" className="text-[#00D2FF] hover:text-[#FABB18] text-[10px] md:text-[11px] font-bold flex items-center gap-2 transition-colors uppercase tracking-widest">
+                VER TODOS LOS PROYECTOS <ArrowRight size={14} />
+              </Link>
             </div>
 
-          </div>
+            {/* Grid Container for Cards via Client Component */}
+            <ProjectsClient projects={projects} />
 
           </div> {/* End of relative z-20 */}
         </div> {/* End of Animated Border Container */}

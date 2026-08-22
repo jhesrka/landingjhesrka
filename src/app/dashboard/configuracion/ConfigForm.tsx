@@ -7,6 +7,7 @@ import { Save } from "lucide-react";
 export default function ConfigForm({ initialSettings }: { initialSettings: any }) {
   const [payphoneToken, setPayphoneToken] = useState(initialSettings?.payphoneToken || "");
   const [payphoneStoreId, setPayphoneStoreId] = useState(initialSettings?.payphoneStoreId || "");
+  const [whatsappNumber, setWhatsappNumber] = useState(initialSettings?.whatsappNumber || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
 
@@ -18,6 +19,7 @@ export default function ConfigForm({ initialSettings }: { initialSettings: any }
     const formData = new FormData();
     formData.append("payphoneToken", payphoneToken);
     formData.append("payphoneStoreId", payphoneStoreId);
+    formData.append("whatsappNumber", whatsappNumber);
 
     const res = await updateSettings(formData);
     
@@ -31,35 +33,55 @@ export default function ConfigForm({ initialSettings }: { initialSettings: any }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+    <form onSubmit={handleSubmit} className="space-y-8 max-w-2xl">
       {message && (
         <div className={`p-4 rounded-lg text-sm font-medium ${message.type === 'error' ? 'bg-red-500/10 text-red-500 border border-red-500/20' : 'bg-green-500/10 text-green-500 border border-green-500/20'}`}>
           {message.text}
         </div>
       )}
 
-      <div>
-        <label className="block text-sm font-bold text-[#8995A9] uppercase mb-2">PayPhone Token</label>
-        <input 
-          type="text" 
-          value={payphoneToken}
-          onChange={e => setPayphoneToken(e.target.value)}
-          placeholder="Ej: Bearer YW..."
-          className="w-full bg-[#01040A] border border-[#1A2333] rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00D2FF] font-mono text-sm"
-        />
-        <p className="text-xs text-gray-500 mt-2">Token de autorización Bearer proporcionado por PayPhone.</p>
+      {/* PAYPHONE SECTION */}
+      <div className="space-y-6">
+        <h3 className="text-lg font-semibold text-white border-b border-white/10 pb-2">Pagos PayPhone</h3>
+        <div>
+          <label className="block text-sm font-bold text-[#8995A9] uppercase mb-2">PayPhone Token</label>
+          <input 
+            type="text" 
+            value={payphoneToken}
+            onChange={e => setPayphoneToken(e.target.value)}
+            placeholder="Ej: Bearer YW..."
+            className="w-full bg-[#01040A] border border-[#1A2333] rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00D2FF] font-mono text-sm"
+          />
+          <p className="text-xs text-gray-500 mt-2">Token de autorización Bearer proporcionado por PayPhone.</p>
+        </div>
+
+        <div>
+          <label className="block text-sm font-bold text-[#8995A9] uppercase mb-2">PayPhone Store ID</label>
+          <input 
+            type="text" 
+            value={payphoneStoreId}
+            onChange={e => setPayphoneStoreId(e.target.value)}
+            placeholder="Ej: store-1234..."
+            className="w-full bg-[#01040A] border border-[#1A2333] rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00D2FF] font-mono text-sm"
+          />
+          <p className="text-xs text-gray-500 mt-2">Identificador único de la tienda en PayPhone.</p>
+        </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-bold text-[#8995A9] uppercase mb-2">PayPhone Store ID</label>
-        <input 
-          type="text" 
-          value={payphoneStoreId}
-          onChange={e => setPayphoneStoreId(e.target.value)}
-          placeholder="Ej: store-1234..."
-          className="w-full bg-[#01040A] border border-[#1A2333] rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00D2FF] font-mono text-sm"
-        />
-        <p className="text-xs text-gray-500 mt-2">Identificador único de la tienda en PayPhone.</p>
+      {/* WHATSAPP SECTION */}
+      <div className="space-y-6">
+        <h3 className="text-lg font-semibold text-white border-b border-white/10 pb-2">Redes y Contacto</h3>
+        <div>
+          <label className="block text-sm font-bold text-[#8995A9] uppercase mb-2">Número de WhatsApp</label>
+          <input 
+            type="text" 
+            value={whatsappNumber}
+            onChange={e => setWhatsappNumber(e.target.value)}
+            placeholder="Ej: 593991234567"
+            className="w-full bg-[#01040A] border border-[#1A2333] rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#00D2FF] font-mono text-sm"
+          />
+          <p className="text-xs text-gray-500 mt-2">Ingresa tu número con código de país sin el símbolo "+" (Ej: 593 para Ecuador).</p>
+        </div>
       </div>
 
       <button 

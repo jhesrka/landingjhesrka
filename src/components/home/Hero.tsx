@@ -4,6 +4,7 @@ import { MessageSquare, ArrowRight, Monitor, ShoppingCart, Smartphone, LayoutDas
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 
 const features = [
   { icon: <Monitor size={20} className="text-white" />, title: "Páginas Web", desc: "Modernas y rápidas" },
@@ -41,10 +42,13 @@ export const Hero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
-              <Link href="#whatsapp" className="flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#FFD700] to-[#FABB18] text-black font-extrabold text-[13px] hover:brightness-110 transition-all shadow-[0_0_30px_rgba(250,187,24,0.4)] w-full sm:w-auto">
+              <WhatsAppLink 
+                message="Hola equipo de Jhesrka Developer, estoy interesado en crear un proyecto digital y me gustaría recibir asesoría."
+                className="flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#FFD700] to-[#FABB18] text-black font-extrabold text-[13px] hover:brightness-110 transition-all shadow-[0_0_30px_rgba(250,187,24,0.4)] w-full sm:w-auto"
+              >
                 <MessageSquare size={18} />
                 ESCRÍBENOS POR WHATSAPP
-              </Link>
+              </WhatsAppLink>
               <Link href="#portafolio" className="flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-transparent border border-[#00D2FF]/50 text-white font-bold text-[13px] hover:bg-[#00D2FF]/10 transition-all shadow-[0_0_15px_rgba(0,210,255,0.1)] w-full sm:w-auto">
                 VER PORTAFOLIO
                 <ArrowRight size={18} strokeWidth={2.5} />

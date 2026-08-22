@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { MessageSquare, ShieldCheck, Truck, ThumbsUp, HeadphonesIcon, ShoppingCart } from "lucide-react";
+import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 
 export const StoreHero = () => {
   return (
@@ -39,9 +40,12 @@ export const StoreHero = () => {
               <button className="bg-gradient-to-r from-[#FFD700] to-[#FABB18] text-[#01040A] px-8 py-3.5 rounded-xl font-extrabold text-[13px] hover:brightness-110 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(250,187,24,0.3)]">
                 <ShoppingCart size={18} strokeWidth={2.5} /> COMPRAR AHORA
               </button>
-              <a href="https://wa.me/593991234567" target="_blank" rel="noreferrer" className="bg-transparent border border-[#00D2FF]/50 text-white px-8 py-3.5 rounded-xl font-bold text-[13px] hover:bg-[#00D2FF]/10 transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(0,210,255,0.1)]">
+              <WhatsAppLink 
+                message="Hola, estoy en la tienda y me interesan los planes y servicios digitales."
+                className="bg-transparent border border-[#00D2FF]/50 text-white px-8 py-3.5 rounded-xl font-bold text-[13px] hover:bg-[#00D2FF]/10 transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(0,210,255,0.1)]"
+              >
                 <MessageSquare size={18} className="text-[#00D2FF]" /> HABLAR POR WHATSAPP
-              </a>
+              </WhatsAppLink>
             </div>
 
             {/* Features Bar */}

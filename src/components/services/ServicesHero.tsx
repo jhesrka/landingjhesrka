@@ -1,5 +1,6 @@
 import { ArrowRight, MessageSquare, Monitor, Smartphone } from "lucide-react";
 import Link from "next/link";
+import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 
 export const ServicesHero = () => {
   return (
@@ -33,9 +34,12 @@ export const ServicesHero = () => {
               <Link href="#contacto" className="flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-[#FFD700] to-[#FABB18] text-black font-extrabold text-[13px] hover:brightness-110 transition-all shadow-[0_0_30px_rgba(250,187,24,0.4)] w-fit">
                 Solicitar Cotización <ArrowRight size={18} strokeWidth={2.5} />
               </Link>
-              <a href="https://wa.me/593991234567" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-transparent border border-[#00D2FF]/50 text-white font-bold text-[13px] hover:bg-[#00D2FF]/10 transition-all shadow-[0_0_15px_rgba(0,210,255,0.1)] w-fit">
+              <WhatsAppLink 
+                message="Hola, estoy interesado en los servicios de Jhesrka Developer y me gustaría solicitar una cotización."
+                className="flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-transparent border border-[#00D2FF]/50 text-white font-bold text-[13px] hover:bg-[#00D2FF]/10 transition-all shadow-[0_0_15px_rgba(0,210,255,0.1)] w-fit"
+              >
                 <MessageSquare size={18} className="text-[#00D2FF]" /> Hablar por WhatsApp
-              </a>
+              </WhatsAppLink>
             </div>
           </div>
 

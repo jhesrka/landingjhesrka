@@ -7,6 +7,8 @@ import Image from "next/image";
 import { PopupModal } from "react-calendly";
 import { useContactForm } from "@/hooks/useContactForm";
 import { usePathname } from "next/navigation";
+import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
+import { getSettings } from "@/app/dashboard/configuracion/actions";
 
 export const Footer = () => {
   const pathname = usePathname();
@@ -21,6 +23,28 @@ export const Footer = () => {
     handleSubmit,
     closeCalendly
   } = useContactForm();
+
+  const [footerPhone, setFooterPhone] = useState("+593 97 939 8949");
+
+  useEffect(() => {
+    const fetchNumber = async () => {
+      try {
+        const settings = await getSettings();
+        if (settings?.whatsappNumber) {
+          // Format as +XXX XX XXX XXXX if it's 12 digits, else just prepend +
+          const num = settings.whatsappNumber;
+          if (num.length >= 10) {
+            setFooterPhone(`+${num.slice(0,3)} ${num.slice(3,5)} ${num.slice(5,8)} ${num.slice(8)}`);
+          } else {
+            setFooterPhone(`+${num}`);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching whatsapp number", error);
+      }
+    };
+    fetchNumber();
+  }, []);
 
   return (
     <footer className="bg-[#01040A] relative overflow-hidden" id="contacto">
@@ -93,10 +117,13 @@ export const Footer = () => {
                   Cuéntanos tu proyecto y creemos algo increíble juntos.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <a href="https://wa.me/593991234567" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#FFD700] to-[#FABB18] text-black font-bold text-[12px] md:text-[13px] hover:brightness-110 transition-all shadow-[0_0_25px_rgba(250,187,24,0.3)] w-fit whitespace-nowrap">
+                  <WhatsAppLink 
+                    message="Hola Jhesrka Developer, estoy listo para llevar mi negocio al siguiente nivel."
+                    className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#FFD700] to-[#FABB18] text-black font-bold text-[12px] md:text-[13px] hover:brightness-110 transition-all shadow-[0_0_25px_rgba(250,187,24,0.3)] w-fit whitespace-nowrap"
+                  >
                     <MessageSquare size={16} className="fill-black" />
                     CHAT WHATSAPP
-                  </a>
+                  </WhatsAppLink>
                   <button className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-transparent border border-[#00D2FF]/50 text-white font-bold text-[12px] md:text-[13px] hover:bg-[#00D2FF]/10 transition-all shadow-[0_0_15px_rgba(0,210,255,0.1)] w-fit whitespace-nowrap">
                     COTIZAR AHORA
                   </button>
@@ -244,7 +271,7 @@ export const Footer = () => {
                 <MapPin size={16} className="text-white" /> Quito, Ecuador
               </li>
               <li className="flex items-center gap-3 text-[#8995A9] text-[12px]">
-                <Phone size={16} className="text-white" /> +593 99 123 4567
+                <Phone size={16} className="text-white" /> {footerPhone}
               </li>
               <li className="flex items-center gap-3 text-[#8995A9] text-[12px]">
                 <Mail size={16} className="text-white" /> hola@jhesrka.dev

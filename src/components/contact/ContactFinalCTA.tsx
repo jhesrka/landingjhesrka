@@ -1,4 +1,5 @@
 import { MessageSquare, Calendar } from "lucide-react";
+import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 
 export const ContactFinalCTA = () => {
   return (
@@ -40,9 +41,12 @@ export const ContactFinalCTA = () => {
 
         {/* Buttons */}
         <div className="relative z-10 flex flex-col sm:flex-row gap-3 w-full lg:w-auto mt-2 lg:mt-0">
-          <a href="https://wa.me/593991234567" target="_blank" rel="noreferrer" className="bg-gradient-to-r from-[#FFD700] to-[#FABB18] text-[#01040A] px-5 py-2.5 rounded-xl font-extrabold text-[12px] hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(250,187,24,0.3)]">
+          <WhatsAppLink 
+            message="Hola Jhesrka Developer, estoy listo para iniciar mi próximo proyecto."
+            className="bg-gradient-to-r from-[#FFD700] to-[#FABB18] text-[#01040A] px-5 py-2.5 rounded-xl font-extrabold text-[12px] hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(250,187,24,0.3)]"
+          >
             <MessageSquare size={16} strokeWidth={2.5} /> HABLAR POR WHATSAPP
-          </a>
+          </WhatsAppLink>
           <button className="bg-transparent border border-white/20 text-white px-5 py-2.5 rounded-xl font-bold text-[12px] hover:border-[#00D2FF] hover:text-[#00D2FF] transition-all flex items-center justify-center">
             SOLICITAR COTIZACIÓN
           </button>

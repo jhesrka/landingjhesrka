@@ -14,6 +14,7 @@ export async function getSettings() {
 export async function updateSettings(formData: FormData) {
   const payphoneToken = formData.get("payphoneToken") as string;
   const payphoneStoreId = formData.get("payphoneStoreId") as string;
+  const whatsappNumber = formData.get("whatsappNumber") as string;
 
   try {
     const existing = await db.select().from(settings).limit(1);
@@ -22,12 +23,14 @@ export async function updateSettings(formData: FormData) {
       await db.update(settings).set({
         payphoneToken,
         payphoneStoreId,
+        whatsappNumber,
         updatedAt: new Date()
       }).where(eq(settings.id, existing[0].id));
     } else {
       await db.insert(settings).values({
         payphoneToken,
         payphoneStoreId,
+        whatsappNumber,
       });
     }
 

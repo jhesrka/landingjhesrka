@@ -22,7 +22,7 @@ export const ContactFAQ = () => {
     },
     {
       q: "¿Incluyen dominio y hosting?",
-      a: "Nuestros planes no incluyen el costo del dominio ni el hosting por defecto, pero te asesoramos y ayudamos a contratar el mejor servicio para tus necesidades."
+      a: "Te asesoramos en la compra y realizamos toda la configuración de tu dominio y hosting. El costo de estos servicios lo asume el cliente y se paga directamente al proveedor (no está incluido en el precio de la web)."
     }
   ];
 

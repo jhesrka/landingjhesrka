@@ -39,5 +39,6 @@ export const settings = pgTable('settings', {
   id: serial('id').primaryKey(),
   payphoneToken: text('payphone_token'),
   payphoneStoreId: varchar('payphone_store_id', { length: 255 }),
+  whatsappNumber: varchar('whatsapp_number', { length: 50 }),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });

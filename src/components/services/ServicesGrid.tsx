@@ -1,6 +1,10 @@
-import { ArrowRight, Code2, Globe, Laptop, LayoutTemplate, ShieldCheck, ShoppingCart, Briefcase, Rocket } from "lucide-react";
+"use client";
+
+import { useState, useEffect } from "react";
+import { ArrowRight, Code2, Globe, Laptop, LayoutTemplate, ShieldCheck, ShoppingCart, Briefcase, Rocket, X, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 const servicesList = [
   {
@@ -11,6 +15,21 @@ const servicesList = [
       "Sitios rápidos y optimizados\npara Google (SEO)",
       "Adaptables para todos\nlos dispositivos",
     ],
+    details: {
+      description: "Creamos la carta de presentación digital perfecta para tu empresa, enfocada en transmitir profesionalismo y captar la atención de tus clientes ideales.",
+      benefits: [
+        "Transmite confianza y autoridad",
+        "Mejora tu posicionamiento en Google (SEO)",
+        "Diseño responsivo (perfecto en móviles)",
+        "Estructura orientada a conseguir clientes"
+      ],
+      includes: [
+        "Diseño UI/UX exclusivo",
+        "Formularios de contacto dinámicos",
+        "Integración con redes sociales",
+        "Asesoría y configuración de dominio/hosting (no incluye el costo)"
+      ]
+    },
     imageMockup: "/laptop_web_corp_1786739284850.jpg",
     bgImage: "/corporativa.webp",
     link: "#",
@@ -23,6 +42,21 @@ const servicesList = [
       "Carrito de compras y\npasarelas de pago",
       "Gestión de productos\ne inventario",
     ],
+    details: {
+      description: "Vende tus productos 24/7 con una tienda virtual segura, rápida y fácil de administrar, diseñada para maximizar tus conversiones de venta.",
+      benefits: [
+        "Aumenta tus ventas sin límites geográficos",
+        "Experiencia de compra rápida e intuitiva",
+        "Automatización de procesos de venta",
+        "Control total de tu negocio online"
+      ],
+      includes: [
+        "Carrito de compras avanzado",
+        "Pasarelas de pago (Stripe, PayPal, etc.)",
+        "Panel de administración amigable",
+        "Gestión de inventario y pedidos"
+      ]
+    },
     imageMockup: "/laptop_ecommerce_1786739295410.jpg",
     bgImage: "/ecommerce.webp",
     link: "#",
@@ -35,6 +69,21 @@ const servicesList = [
       "Dashboards y paneles\nadministrativos",
       "Plataformas internas\neficientes",
     ],
+    details: {
+      description: "Desarrollamos soluciones tecnológicas 100% personalizadas para resolver problemas específicos, automatizar tareas diarias y escalar tu negocio.",
+      benefits: [
+        "Se adapta exactamente a lo que necesitas",
+        "Optimiza y agiliza procesos internos",
+        "Reduce costos operativos a largo plazo",
+        "Alta escalabilidad y seguridad de datos"
+      ],
+      includes: [
+        "Arquitectura de software moderna",
+        "Bases de datos estructuradas a medida",
+        "Sistemas de roles y permisos",
+        "Desarrollo de APIs e integraciones"
+      ]
+    },
     imageMockup: "/laptop_web_corp_1786739284850.jpg",
     bgImage: "/aplicaciones.webp",
     link: "#",
@@ -47,6 +96,21 @@ const servicesList = [
       "CRM, ERP e inventarios",
       "Soluciones completas\npara empresas",
     ],
+    details: {
+      description: "Centraliza y potencia la gestión de tu empresa con herramientas robustas como CRMs o ERPs, diseñados específicamente para tu flujo de trabajo.",
+      benefits: [
+        "Toma de decisiones basada en datos reales",
+        "Mejora radicalmente la productividad",
+        "Control total sobre cada área de la empresa",
+        "Información centralizada y respaldada"
+      ],
+      includes: [
+        "Paneles estadísticos interactivos (Dashboards)",
+        "Reportes en tiempo real exportables",
+        "Módulos personalizados (RRHH, Ventas, etc.)",
+        "Seguridad de nivel corporativo"
+      ]
+    },
     imageMockup: "/laptop_ecommerce_1786739295410.jpg",
     bgImage: "/sistemas.webp",
     link: "#",
@@ -59,6 +123,21 @@ const servicesList = [
       "Diseños atractivos y\npersuasivos",
       "Ideales para campañas\nde publicidad",
     ],
+    details: {
+      description: "Páginas de aterrizaje diseñadas estratégicamente con un solo objetivo: convertir a tus visitantes en clientes potenciales o ventas directas.",
+      benefits: [
+        "Alto porcentaje de conversión",
+        "Maximiza el retorno (ROI) en anuncios (Ads)",
+        "Mensaje claro, directo y persuasivo",
+        "Carga ultrarrápida para evitar rebotes"
+      ],
+      includes: [
+        "Estructura persuasiva y Copywriting",
+        "Llamados a la acción (CTA) irresistibles",
+        "Integración con WhatsApp y Email",
+        "Configuración de píxeles de seguimiento"
+      ]
+    },
     imageMockup: "/laptop_web_corp_1786739284850.jpg",
     bgImage: "/landing.webp",
     link: "#",
@@ -71,13 +150,42 @@ const servicesList = [
       "Seguridad y protección\navanzada",
       "Soporte técnico rápido\ny confiable",
     ],
+    details: {
+      description: "Mantén tu sitio web seguro, siempre actualizado y funcionando al máximo rendimiento sin que tengas que preocuparte por problemas técnicos.",
+      benefits: [
+        "Tranquilidad total para enfocarte en tu negocio",
+        "Prevención activa contra hackeos y malware",
+        "Garantiza tiempos de carga óptimos",
+        "Resolución prioritaria de incidencias"
+      ],
+      includes: [
+        "Copias de seguridad (Backups) regulares",
+        "Actualizaciones de sistema, temas y plugins",
+        "Monitoreo de seguridad 24/7",
+        "Soporte técnico directo"
+      ]
+    },
     imageMockup: "/laptop_ecommerce_1786739295410.jpg",
     bgImage: "/mantenimiento.webp",
     link: "#",
   },
 ];
 
+type ServiceType = typeof servicesList[0];
+
 export const ServicesGrid = () => {
+  const [selectedService, setSelectedService] = useState<ServiceType | null>(null);
+
+  // Prevent background scrolling when modal is open
+  useEffect(() => {
+    if (selectedService) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; }
+  }, [selectedService]);
+
   return (
     <section className="py-8 bg-[#01040A] relative z-10 border-t border-white/5">
       <div className="container mx-auto px-4 lg:px-8 max-w-[1400px]">
@@ -145,9 +253,12 @@ export const ServicesGrid = () => {
                       </li>
                     ))}
                   </ul>
-                  <Link href={service.link} className="flex items-center gap-2 text-[#FABB18] text-[13px] font-bold tracking-wide hover:text-[#FFD700] transition-colors w-fit drop-shadow-[0_0_8px_rgba(250,187,24,0.4)] mt-auto">
+                  <button 
+                    onClick={() => setSelectedService(service)}
+                    className="flex items-center gap-2 text-[#FABB18] text-[13px] font-bold tracking-wide hover:text-[#FFD700] transition-colors w-fit drop-shadow-[0_0_8px_rgba(250,187,24,0.4)] mt-auto cursor-pointer"
+                  >
                     Ver más <ArrowRight size={16} />
-                  </Link>
+                  </button>
                 </div>
 
                 {/* Isolated Laptop Image with Screen Blend (Flawless Integration) - Hidden if card uses a background image */}
@@ -167,6 +278,104 @@ export const ServicesGrid = () => {
           ))}
         </div>
       </div>
+
+      {/* Modal / Popup */}
+      <AnimatePresence>
+        {selectedService && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+            {/* Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedService(null)}
+              className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            />
+            
+            {/* Modal Content */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
+              className="relative w-full max-w-2xl bg-[#050A15] rounded-[24px] border border-[#00D2FF]/20 shadow-[0_0_40px_rgba(0,210,255,0.1)] overflow-hidden flex flex-col max-h-[90vh] z-10"
+            >
+              {/* Decorative top gradient */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#00D2FF] to-transparent opacity-50" />
+              
+              {/* Close button */}
+              <button
+                onClick={() => setSelectedService(null)}
+                className="absolute top-4 right-4 z-10 p-2 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+              >
+                <X size={24} />
+              </button>
+
+              <div className="overflow-y-auto p-6 sm:p-8 scrollbar-thin scrollbar-thumb-[#00D2FF]/30 scrollbar-track-transparent">
+                {/* Header */}
+                <div className="flex items-center gap-4 mb-6 pr-10">
+                  <div className="p-3 bg-[#00D2FF]/10 rounded-xl border border-[#00D2FF]/20 drop-shadow-[0_0_12px_rgba(0,210,255,0.4)]">
+                    {selectedService.icon}
+                  </div>
+                  <h3 className="text-white text-xl sm:text-2xl font-bold whitespace-pre-line leading-tight">
+                    {selectedService.title.replace('\n', ' ')}
+                  </h3>
+                </div>
+
+                {/* Description */}
+                <p className="text-[#8995A9] text-base leading-relaxed mb-8">
+                  {selectedService.details.description}
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
+                  {/* Benefits */}
+                  <div>
+                    <h4 className="text-white text-lg font-semibold mb-4 flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#FABB18]" />
+                      Beneficios clave
+                    </h4>
+                    <ul className="space-y-3">
+                      {selectedService.details.benefits.map((benefit, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <CheckCircle2 size={18} className="text-[#00D2FF] shrink-0 mt-0.5" />
+                          <span className="text-[#8995A9] text-sm leading-snug">{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Includes */}
+                  <div>
+                    <h4 className="text-white text-lg font-semibold mb-4 flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#FABB18]" />
+                      ¿Qué incluye?
+                    </h4>
+                    <ul className="space-y-3">
+                      {selectedService.details.includes.map((item, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <CheckCircle2 size={18} className="text-[#00D2FF] shrink-0 mt-0.5" />
+                          <span className="text-[#8995A9] text-sm leading-snug">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <div className="pt-6 border-t border-white/10 flex justify-end">
+                  <Link 
+                    href="/contacto"
+                    className="inline-flex items-center justify-center gap-2 bg-[#FABB18] text-black font-bold py-3 px-6 rounded-full hover:bg-[#FFD700] hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(250,187,24,0.3)] w-full sm:w-auto text-sm sm:text-base"
+                    onClick={() => setSelectedService(null)}
+                  >
+                    Solicitar Cotización <ArrowRight size={18} />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

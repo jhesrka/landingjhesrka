@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { CheckCircle2, XCircle, ShoppingCart, Eye, Heart, X } from "lucide-react";
+import { CheckCircle2, XCircle, ShoppingCart, Eye, Heart, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 type PricingFeature = {
   text: string;
   included: boolean;
@@ -16,6 +17,7 @@ export type PricingPackage = {
   paymentType: string;
   image: string;
   previewImage?: string;
+  gallery?: string[];
   deliveryTime: string;
   features: PricingFeature[];
 };
@@ -28,6 +30,140 @@ interface PricingSectionProps {
 
 export const PricingSection = ({ title, icon, packages }: PricingSectionProps) => {
   const [previewPkg, setPreviewPkg] = useState<PricingPackage | null>(null);
+  const [currentGalleryIdx, setCurrentGalleryIdx] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const openPreview = (pkg: PricingPackage) => {
+    setPreviewPkg(pkg);
+    setCurrentGalleryIdx(0);
+  };
+
+  const nextGalleryImage = () => {
+    if (previewPkg?.gallery) {
+      setCurrentGalleryIdx((prev) => (prev + 1) % previewPkg.gallery!.length);
+    }
+  };
+
+  const prevGalleryImage = () => {
+    if (previewPkg?.gallery) {
+      setCurrentGalleryIdx((prev) => (prev - 1 + previewPkg.gallery!.length) % previewPkg.gallery!.length);
+    }
+  };
+
+  const renderModal = () => {
+    if (!previewPkg) return null;
+
+    const isGallery = previewPkg.gallery && previewPkg.gallery.length > 1;
+
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10">
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setPreviewPkg(null)} />
+        
+        <div className="relative bg-[#060D1A] border border-[#1A2333] rounded-[24px] p-2 w-full max-w-5xl h-[85vh] flex flex-col shadow-[0_0_50px_rgba(0,210,255,0.15)]">
+          {/* Header del Modal */}
+          <div className="flex justify-between items-start p-4 border-b border-white/10 shrink-0">
+            <div>
+              <h3 className="text-white font-bold text-lg md:text-xl uppercase tracking-wider flex items-center gap-2">
+                {previewPkg.title} - {isGallery ? "Galería de Ejemplo" : "Vista Previa"}
+              </h3>
+              <p className="text-[#00D2FF] text-[12px] font-semibold mt-1 opacity-80">
+                * Esta es solo una página de ejemplo ilustrativa.
+              </p>
+            </div>
+            <button onClick={() => setPreviewPkg(null)} className="text-[#8995A9] hover:text-[#00D2FF] transition-colors p-1 bg-white/5 rounded-full hover:bg-white/10 mt-1">
+              <X size={24} />
+            </button>
+          </div>
+          
+          {isGallery ? (
+            /* Carrusel de Imágenes */
+            <div className="flex-1 overflow-y-auto lg:overflow-hidden relative rounded-b-[20px] bg-[#02050A] group mt-2 flex lg:items-center lg:justify-center">
+              {/* Instrucción solo en PC */}
+              <div className="hidden lg:flex absolute inset-0 items-center justify-center opacity-50 group-hover:opacity-0 transition-opacity z-10 pointer-events-none">
+                <p className="text-[#8995A9] text-sm animate-pulse border border-[#8995A9]/30 rounded-full px-4 py-2 bg-black/50 backdrop-blur-md shadow-lg">
+                  Pasa el mouse para hacer scroll ↓
+                </p>
+              </div>
+
+               {/* Imagen para PC (Animación automática) */}
+               <div className="hidden lg:block absolute inset-0">
+                 <Image 
+                   src={previewPkg.gallery![currentGalleryIdx]} 
+                   alt={`Gallery image ${currentGalleryIdx + 1}`} 
+                   fill
+                   className="object-cover object-top transition-all duration-[6000ms] ease-in-out group-hover:object-bottom"
+                   unoptimized
+                 />
+               </div>
+
+               {/* Imagen para Móviles (Scroll nativo) */}
+               <div className="block lg:hidden w-full">
+                 <Image 
+                   src={previewPkg.gallery![currentGalleryIdx]} 
+                   alt={`Gallery image ${currentGalleryIdx + 1}`} 
+                   width={1200}
+                   height={4000}
+                   className="w-full h-auto"
+                   unoptimized
+                 />
+               </div>
+               
+               {/* Controles del Carrusel */}
+               <button onClick={prevGalleryImage} className="absolute left-4 top-1/2 -translate-y-1/2 lg:top-auto lg:translate-y-0 w-10 h-10 bg-black/50 border border-white/10 text-white rounded-full flex items-center justify-center hover:bg-[#00D2FF] hover:text-black hover:border-[#00D2FF] transition-all z-20">
+                 <ChevronLeft size={24} />
+               </button>
+               <button onClick={nextGalleryImage} className="absolute right-4 top-1/2 -translate-y-1/2 lg:top-auto lg:translate-y-0 w-10 h-10 bg-black/50 border border-white/10 text-white rounded-full flex items-center justify-center hover:bg-[#00D2FF] hover:text-black hover:border-[#00D2FF] transition-all z-20">
+                 <ChevronRight size={24} />
+               </button>
+               <div className="fixed lg:absolute bottom-8 lg:bottom-4 left-0 right-0 flex justify-center gap-2 z-20 bg-gradient-to-t from-black/80 to-transparent py-4 lg:bg-none lg:py-0 pointer-events-none">
+                 <div className="flex gap-2 pointer-events-auto">
+                   {previewPkg.gallery!.map((_, i) => (
+                     <div key={i} className={`w-2 h-2 rounded-full transition-colors ${i === currentGalleryIdx ? 'bg-[#00D2FF]' : 'bg-white/20'}`} />
+                   ))}
+                 </div>
+               </div>
+            </div>
+          ) : (
+            /* Contenedor de la Imagen con Scroll Nativo en Móvil y Hover en PC */
+            <div className="flex-1 overflow-y-auto lg:overflow-hidden relative rounded-b-[20px] bg-[#02050A] group mt-2">
+              <div className="hidden lg:flex absolute inset-0 items-center justify-center opacity-50 group-hover:opacity-0 transition-opacity z-10 pointer-events-none">
+                <p className="text-[#8995A9] text-sm animate-pulse border border-[#8995A9]/30 rounded-full px-4 py-2 bg-black/50 backdrop-blur-md shadow-lg">
+                  Pasa el mouse para hacer scroll ↓
+                </p>
+              </div>
+              
+              {/* Imagen para PC (Animación automática) */}
+              <div className="hidden lg:block absolute inset-0">
+                <Image 
+                  src={previewPkg.previewImage || previewPkg.image || "/landing1.webp"} 
+                  alt={`Preview ${previewPkg.title}`} 
+                  fill
+                  className="object-cover object-top transition-all duration-[6000ms] ease-in-out group-hover:object-bottom"
+                  unoptimized
+                />
+              </div>
+
+              {/* Imagen para Móviles (Scroll nativo) */}
+              <div className="block lg:hidden w-full">
+                <Image 
+                  src={previewPkg.previewImage || previewPkg.image || "/landing1.webp"} 
+                  alt={`Preview ${previewPkg.title}`} 
+                  width={1200}
+                  height={4000}
+                  className="w-full h-auto"
+                  unoptimized
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <section className="container mx-auto px-4 lg:px-8 max-w-[1400px] mt-16">
@@ -109,10 +245,10 @@ export const PricingSection = ({ title, icon, packages }: PricingSectionProps) =
                 </p>
                 <div className="flex items-center gap-3">
                   <button 
-                    onClick={() => setPreviewPkg(pkg)}
+                    onClick={() => openPreview(pkg)}
                     className="flex-1 bg-transparent border border-white/10 hover:border-[#00D2FF]/50 text-white hover:text-[#00D2FF] py-3 rounded-lg text-[12px] font-bold transition-all flex justify-center items-center gap-2"
                   >
-                    <Eye size={16} /> VISTA PREVIA
+                    <Eye size={16} /> VER EJEMPLO
                   </button>
                   <button 
                     onClick={() => {
@@ -134,45 +270,8 @@ export const PricingSection = ({ title, icon, packages }: PricingSectionProps) =
         ))}
       </div>
 
-      {/* Modal de Vista Previa */}
-      {previewPkg && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-10">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setPreviewPkg(null)} />
-          
-          <div className="relative bg-[#060D1A] border border-[#1A2333] rounded-[24px] p-2 w-full max-w-5xl h-[85vh] flex flex-col shadow-[0_0_50px_rgba(0,210,255,0.15)]">
-            {/* Header del Modal */}
-            <div className="flex justify-between items-start p-4 border-b border-white/10 shrink-0">
-              <div>
-                <h3 className="text-white font-bold text-lg md:text-xl uppercase tracking-wider flex items-center gap-2">
-                  {previewPkg.title} - Vista Previa
-                </h3>
-                <p className="text-[#00D2FF] text-[12px] font-semibold mt-1 opacity-80">
-                  * Esta es solo una página de ejemplo ilustrativa.
-                </p>
-              </div>
-              <button onClick={() => setPreviewPkg(null)} className="text-[#8995A9] hover:text-[#00D2FF] transition-colors p-1 bg-white/5 rounded-full hover:bg-white/10 mt-1">
-                <X size={24} />
-              </button>
-            </div>
-            
-            {/* Contenedor de la Imagen con Scroll on Hover */}
-            <div className="flex-1 overflow-hidden relative rounded-b-[20px] bg-[#02050A] group mt-2">
-              <div className="absolute inset-0 flex items-center justify-center opacity-50 group-hover:opacity-0 transition-opacity">
-                <p className="text-[#8995A9] text-sm animate-pulse border border-[#8995A9]/30 rounded-full px-4 py-2 bg-black/50 backdrop-blur-md z-10 pointer-events-none shadow-lg">
-                  Pasa el mouse para hacer scroll ↓
-                </p>
-              </div>
-              <Image 
-                src={previewPkg.previewImage || previewPkg.image || "/landing1.webp"} 
-                alt={`Preview ${previewPkg.title}`} 
-                fill
-                className="object-cover object-top transition-all duration-[6000ms] ease-in-out group-hover:object-bottom"
-                unoptimized
-              />
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Modal de Vista Previa Renderizado con Portal */}
+      {isMounted && previewPkg && createPortal(renderModal(), document.body)}
     </section>
   );
 };

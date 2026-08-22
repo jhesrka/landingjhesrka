@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { MessageSquare, Calendar, Zap, HeadphonesIcon, ShieldCheck } from "lucide-react";
 import { ContactFormAdvanced } from "./ContactFormAdvanced";
+import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 
 export const ContactHero = () => {
   return (
@@ -48,9 +49,12 @@ export const ContactHero = () => {
               </p>
               
               <div className="flex flex-wrap items-center gap-4 pt-2">
-                <a href="https://wa.me/593991234567" target="_blank" rel="noreferrer" className="bg-gradient-to-r from-[#FFD700] to-[#FABB18] text-[#01040A] px-8 py-3.5 rounded-xl font-extrabold text-[13px] hover:brightness-110 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(250,187,24,0.3)]">
+                <WhatsAppLink 
+                  message="Hola Jhesrka Developer, estoy interesado en iniciar un proyecto y quiero asesoría."
+                  className="bg-gradient-to-r from-[#FFD700] to-[#FABB18] text-[#01040A] px-8 py-3.5 rounded-xl font-extrabold text-[13px] hover:brightness-110 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(250,187,24,0.3)]"
+                >
                   <MessageSquare size={18} strokeWidth={2.5} /> ESCRIBIRME POR WHATSAPP
-                </a>
+                </WhatsAppLink>
                 <button className="bg-transparent border border-white/20 text-white px-8 py-3.5 rounded-xl font-bold text-[13px] hover:border-[#00D2FF] hover:text-[#00D2FF] transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(0,210,255,0.05)]">
                   <Calendar size={18} /> SOLICITAR COTIZACIÓN
                 </button>

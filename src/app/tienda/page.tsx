@@ -41,6 +41,11 @@ const webPackages: PricingPackage[] = [
       { text: "Panel administrativo", included: true },
       { text: "No incluye dominio", included: false },
       { text: "No incluye hosting", included: false },
+    ],
+    gallery: [
+      "/landing1.webp",
+      "/mockups/wishway.jpg",
+      "/portafolio.webp"
     ]
   },
   {
@@ -60,6 +65,12 @@ const webPackages: PricingPackage[] = [
       { text: "Integración con redes sociales", included: true },
       { text: "Optimización de velocidad", included: true },
       { text: "Soporte técnico básico", included: true },
+    ],
+    gallery: [
+      "/destacado1.webp",
+      "/landing1.webp",
+      "/portafolio.webp",
+      "/mockups/wishway.jpg"
     ]
   }
 ];
@@ -99,6 +110,11 @@ const storePackages: PricingPackage[] = [
       { text: "Integración con WhatsApp", included: true },
       { text: "No incluye dominio", included: false },
       { text: "No incluye hosting", included: false },
+    ],
+    gallery: [
+      "/destacado1.webp",
+      "/mockups/cv3.jpg",
+      "/portafolio.webp"
     ]
   },
   {
@@ -117,6 +133,12 @@ const storePackages: PricingPackage[] = [
       { text: "Productos ilimitados", included: true },
       { text: "Optimización SEO", included: true },
       { text: "Soporte técnico básico", included: true },
+    ],
+    gallery: [
+      "/portafolio.webp",
+      "/destacado1.webp",
+      "/landing1.webp",
+      "/mockups/wishway.jpg"
     ]
   }
 ];
