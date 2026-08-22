@@ -155,22 +155,52 @@ export function CartSidebar() {
             <span className="font-bold text-2xl">${total}</span>
           </div>
           
-          {!showPayphone ? (
-            <button 
-              onClick={handleCheckout}
-              disabled={items.length === 0 || isProcessing}
-              className="w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-r from-[#FABB18] to-[#ff9900] text-black hover:shadow-[0_0_20px_rgba(250,187,24,0.4)]"
-            >
-              {isProcessing ? "Procesando..." : "Preparar Pago"}
-              {!isProcessing && <ArrowRight size={20} />}
-            </button>
-          ) : (
-            <div className="w-full bg-white rounded-xl p-2 animate-in fade-in slide-in-from-bottom-4 duration-300">
-              <div id="pp-button" className="w-full"></div>
-            </div>
-          )}
+          <button 
+            onClick={handleCheckout}
+            disabled={items.length === 0 || isProcessing}
+            className="w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-r from-[#FABB18] to-[#ff9900] text-black hover:shadow-[0_0_20px_rgba(250,187,24,0.4)]"
+          >
+            {isProcessing ? "Cargando..." : "Pagar con PayPhone"}
+            {!isProcessing && <ArrowRight size={20} />}
+          </button>
         </div>
       </div>
+
+      {/* MODAL EMERGENTE DE PAYPHONE */}
+      {showPayphone && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+          {/* Fondo oscuro con blur */}
+          <div 
+            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            onClick={() => {
+              setShowPayphone(false);
+              setIsProcessing(false);
+            }}
+          />
+          
+          {/* Contenedor del Modal */}
+          <div className="relative bg-white rounded-[24px] w-full max-w-md max-h-[90vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden">
+            {/* Cabecera del modal */}
+            <div className="flex justify-between items-center p-4 border-b border-gray-100 shrink-0 bg-gray-50">
+              <h3 className="font-bold text-gray-800 text-lg">Completar Pago</h3>
+              <button 
+                onClick={() => {
+                  setShowPayphone(false);
+                  setIsProcessing(false);
+                }}
+                className="text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors p-2 rounded-full"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            
+            {/* Contenedor scrolleable donde va la Cajita */}
+            <div className="p-4 overflow-y-auto custom-scrollbar flex-grow bg-white">
+              <div id="pp-button" className="w-full min-h-[400px]"></div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
