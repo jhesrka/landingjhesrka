@@ -2,12 +2,49 @@
 
 import { useCartStore } from "@/store/cartStore";
 import { X, ShoppingCart, Trash2, ArrowRight } from "lucide-react";
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
+
+declare global {
+  interface Window {
+    PPaymentButtonBox: any;
+    ppb: any;
+  }
+}
 
 export function CartSidebar() {
   const { items, total, removeItem, isCartOpen, setCartOpen } = useCartStore();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showPayphone, setShowPayphone] = useState(false);
+
+  // Cargar SDK de PayPhone al abrir el carrito
+  useEffect(() => {
+    if (isCartOpen) {
+      if (!document.getElementById("payphone-css")) {
+        const link = document.createElement("link");
+        link.id = "payphone-css";
+        link.href = "https://cdn.payphonetodoesposible.com/box/v2.0/payphone-payment-box.css";
+        link.rel = "stylesheet";
+        document.head.appendChild(link);
+      }
+      if (!document.getElementById("payphone-js")) {
+        const script = document.createElement("script");
+        script.id = "payphone-js";
+        script.src = "https://cdn.payphonetodoesposible.com/box/v2.0/payphone-payment-box.js";
+        script.type = "module";
+        document.head.appendChild(script);
+      }
+    } else {
+      // Resetear estado al cerrar el carrito
+      setShowPayphone(false);
+      setIsProcessing(false);
+    }
+  }, [isCartOpen]);
+
+  // Si el usuario cambia los items mientras la cajita está abierta, la ocultamos
+  useEffect(() => {
+    setShowPayphone(false);
+    setIsProcessing(false);
+  }, [total]);
 
   if (!isCartOpen) return null;
 
@@ -16,25 +53,54 @@ export function CartSidebar() {
     setIsProcessing(true);
     
     try {
-      const response = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items, total }),
-      });
+      // 1. Obtener la configuración segura desde nuestro servidor
+      const res = await fetch('/api/checkout/config');
+      const config = await res.json();
       
-      const data = await response.json();
-      
-      if (data.url) {
-        // Redirigir a la pasarela de PayPhone
-        window.location.href = data.url;
-      } else {
-        alert(data.error || 'Error al iniciar el pago.');
+      if (!res.ok) {
+        alert(config.error || 'Error al obtener configuración de pago.');
         setIsProcessing(false);
+        return;
       }
+
+      // 2. Preparar los datos
+      const amountInCents = Math.round(total * 100);
+      const transactionId = Math.random().toString(36).substring(2, 15) + Date.now().toString(36);
+
+      // 3. Mostrar el contenedor de la cajita
+      setShowPayphone(true);
+
+      // Esperar un frame para que el div #pp-button exista en el DOM
+      setTimeout(() => {
+        const container = document.getElementById('pp-button');
+        if (container) container.innerHTML = ''; // Limpiar cajitas anteriores
+
+        if (window.PPaymentButtonBox) {
+          window.ppb = new window.PPaymentButtonBox({
+            token: config.token,
+            clientTransactionId: transactionId,
+            amount: amountInCents,
+            amountWithoutTax: amountInCents,
+            amountWithTax: 0,
+            tax: 0,
+            currency: "USD",
+            storeId: config.storeId,
+            reference: `Compra en JHESRKA - ${items.length} items`,
+            responseUrl: `${config.baseUrl}/checkout/success`,
+            cancellationUrl: `${config.baseUrl}/tienda`
+          }).render('pp-button');
+        } else {
+          alert('El SDK de PayPhone aún no ha cargado. Por favor intenta de nuevo.');
+          setShowPayphone(false);
+          setIsProcessing(false);
+        }
+      }, 100);
+
     } catch (error) {
       console.error(error);
-      alert('Error de conexión.');
+      alert('Error al inicializar la pasarela de pago.');
       setIsProcessing(false);
+      setShowPayphone(false);
     }
   };
 
@@ -66,7 +132,7 @@ export function CartSidebar() {
             </div>
           ) : (
             items.map((item) => (
-              <div key={item.id} className="bg-[#060D1A] border border-[#1A2333] rounded-xl p-4 flex justify-between items-center group">
+               <div key={item.id} className="bg-[#060D1A] border border-[#1A2333] rounded-xl p-4 flex justify-between items-center group">
                 <div>
                   <h3 className="text-white font-bold">{item.name}</h3>
                   <p className="text-[#00D2FF] font-semibold">${item.price}</p>
@@ -89,14 +155,20 @@ export function CartSidebar() {
             <span className="font-bold text-2xl">${total}</span>
           </div>
           
-          <button 
-            onClick={handleCheckout}
-            disabled={items.length === 0 || isProcessing}
-            className="w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-r from-[#FABB18] to-[#ff9900] text-black hover:shadow-[0_0_20px_rgba(250,187,24,0.4)]"
-          >
-            {isProcessing ? "Procesando..." : "Pagar con PayPhone"}
-            {!isProcessing && <ArrowRight size={20} />}
-          </button>
+          {!showPayphone ? (
+            <button 
+              onClick={handleCheckout}
+              disabled={items.length === 0 || isProcessing}
+              className="w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-r from-[#FABB18] to-[#ff9900] text-black hover:shadow-[0_0_20px_rgba(250,187,24,0.4)]"
+            >
+              {isProcessing ? "Procesando..." : "Preparar Pago"}
+              {!isProcessing && <ArrowRight size={20} />}
+            </button>
+          ) : (
+            <div className="w-full bg-white rounded-xl p-2 animate-in fade-in slide-in-from-bottom-4 duration-300">
+              <div id="pp-button" className="w-full"></div>
+            </div>
+          )}
         </div>
       </div>
     </>
