@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db";
-import { settings } from "@/db/schema";
+import { settings, leads } from "@/db/schema";
 
 export async function POST(req: Request) {
   try {
@@ -42,7 +42,27 @@ export async function POST(req: Request) {
 
     const data = await response.json();
 
-    // 4. Retornar los datos de la transacción al cliente
+    // 4. Guardar como Lead en la base de datos si fue aprobado
+    if (data.transactionStatus === "Approved") {
+      try {
+        const clientName = data.optionalParameter4 || data.email || "Cliente Tienda";
+        const totalPaid = (data.amount / 100).toFixed(2);
+        
+        await db.insert(leads).values({
+          fullName: clientName,
+          phone: data.phoneNumber || "No provisto",
+          email: data.email || "No provisto",
+          projectType: "Venta Tienda",
+          message: `Compra PayPhone Aprobada.\nRef: ${data.reference}\nTotal: $${totalPaid}\nTx ID: ${data.transactionId}`,
+          status: "pagado",
+        });
+      } catch (dbError) {
+        console.error("Error guardando lead de la compra:", dbError);
+        // No fallamos el request si falla la base de datos, el cobro ya se hizo
+      }
+    }
+
+    // 5. Retornar los datos de la transacción al cliente
     return NextResponse.json(data);
   } catch (error) {
     console.error("Checkout confirm route error:", error);

@@ -90,10 +90,23 @@ export const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Menu Toggle */}
-        <button className="md:hidden text-white">
-          <Menu size={28} />
-        </button>
+        {/* Mobile Cart & Menu Toggle */}
+        <div className="flex items-center gap-2 md:hidden">
+          <button 
+            onClick={() => setCartOpen(true)}
+            className="relative text-[#8995A9] hover:text-[#00D2FF] transition-colors p-2 cursor-pointer"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+            {mounted && itemsCount > 0 && (
+              <span className="absolute top-0 right-0 w-4 h-4 bg-[#FABB18] text-black text-[10px] font-bold rounded-full flex items-center justify-center">
+                {itemsCount}
+              </span>
+            )}
+          </button>
+          <button className="text-white p-2">
+            <Menu size={28} />
+          </button>
+        </div>
       </div>
     </header>
   );

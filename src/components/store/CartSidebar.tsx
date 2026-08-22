@@ -139,7 +139,7 @@ export function CartSidebar() {
                 </div>
                 <button 
                   onClick={() => removeItem(item.id)}
-                  className="text-red-500 opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-red-500/10 rounded-lg"
+                  className="text-red-500 md:opacity-0 md:group-hover:opacity-100 transition-opacity p-2 hover:bg-red-500/10 rounded-lg"
                   title="Eliminar"
                 >
                   <Trash2 size={18} />

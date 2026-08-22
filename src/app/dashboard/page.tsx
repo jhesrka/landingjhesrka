@@ -34,13 +34,23 @@ export default async function DashboardPage() {
       message: "Cotización para una web corporativa.",
       status: "contactado",
       createdAt: new Date(Date.now() - 86400000),
+    },
+    {
+      id: 3,
+      fullName: "Cliente Ejemplo (Tienda)",
+      phone: "+593 99 999 9999",
+      email: "ejemplo@payphone.com",
+      projectType: "Venta Tienda",
+      message: "Compra PayPhone Aprobada.\nRef: Compra en JHESRKA - 2 items\nTotal: $420.00\nTx ID: 12345678",
+      status: "pagado",
+      createdAt: new Date(),
     }
   ];
 
   return (
     <div className="flex flex-col gap-8">
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div className="bg-[#060D1A] border border-[#1A2333] rounded-2xl p-6 shadow-lg">
           <p className="text-[#8995A9] text-[13px] font-bold uppercase tracking-wider mb-2">Total Leads</p>
           <h3 className="text-white text-[32px] font-extrabold">{displayLeads.length}</h3>
@@ -58,12 +68,19 @@ export default async function DashboardPage() {
             {displayLeads.filter(l => l.status === 'contactado').length}
           </h3>
         </div>
+        <div className="bg-[#060D1A] border border-[#1A2333] rounded-2xl p-6 shadow-lg relative overflow-hidden">
+          <div className="absolute right-0 top-0 w-32 h-32 bg-green-500 blur-[50px] opacity-10" />
+          <p className="text-[#8995A9] text-[13px] font-bold uppercase tracking-wider mb-2 relative z-10">Ventas</p>
+          <h3 className="text-green-500 text-[32px] font-extrabold relative z-10">
+            {displayLeads.filter(l => l.status === 'pagado').length}
+          </h3>
+        </div>
       </div>
 
       {/* Data Table */}
       <div className="bg-[#060D1A] border border-[#1A2333] rounded-2xl shadow-lg overflow-hidden">
         <div className="p-6 border-b border-[#1A2333] flex justify-between items-center">
-          <h2 className="text-white font-bold text-[16px]">Contactos Recientes</h2>
+          <h2 className="text-white font-bold text-[16px]">Contactos y Ventas Recientes</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
@@ -93,16 +110,18 @@ export default async function DashboardPage() {
                       {lead.projectType || 'No especificado'}
                     </span>
                   </td>
-                  <td className="py-4 px-6 text-[#8995A9] text-[12px] max-w-xs truncate">
+                  <td className="py-4 px-6 text-[#8995A9] text-[12px] max-w-xs whitespace-pre-wrap">
                     {lead.message || '-'}
                   </td>
                   <td className="py-4 px-6">
                     <span className={`px-3 py-1 rounded-full text-[11px] font-bold ${
                       lead.status === 'nuevo' 
                         ? 'bg-[#00D2FF]/10 text-[#00D2FF] border border-[#00D2FF]/20' 
+                        : lead.status === 'pagado'
+                        ? 'bg-green-500/10 text-green-500 border border-green-500/20'
                         : 'bg-[#FABB18]/10 text-[#FABB18] border border-[#FABB18]/20'
                     }`}>
-                      {lead.status === 'nuevo' ? 'Nuevo' : 'Contactado'}
+                      {lead.status === 'nuevo' ? 'Nuevo' : lead.status === 'pagado' ? 'Pagado' : 'Contactado'}
                     </span>
                   </td>
                   <td className="py-4 px-6">
