@@ -1,4 +1,5 @@
 import { MapPin, Mail, Phone, Globe } from "lucide-react";
+import Image from "next/image";
 
 export const ContactMethods = () => {
   const methods = [
@@ -30,9 +31,10 @@ export const ContactMethods = () => {
           
           {/* Inner Content Background */}
           <div 
-            className="absolute inset-[1px] rounded-[19px] bg-[#050A15] bg-cover bg-bottom shadow-inner shadow-[#00D2FF]/5 z-10" 
-            style={{ backgroundImage: "url('/fondosseccion.png')" }}
-          />
+            className="absolute inset-[1px] rounded-[19px] bg-[#050A15] shadow-inner shadow-[#00D2FF]/5 z-10 overflow-hidden" 
+          >
+            <Image src="/fondosseccion.png" alt="" fill sizes="(max-width: 768px) 100vw, 100vw" className="object-cover object-bottom absolute inset-0 z-0 opacity-100 pointer-events-none" />
+          </div>
         </div>
 
         {/* Title interrupting the top border */}

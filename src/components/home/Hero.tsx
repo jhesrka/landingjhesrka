@@ -18,12 +18,19 @@ const features = [
 export const Hero = () => {
   return (
     <section 
-      className="relative min-h-[70vh] pt-32 pb-10 flex items-center bg-[#01040A] overflow-hidden bg-cover bg-center" 
+      className="relative min-h-[70vh] pt-32 pb-10 flex items-center bg-[#01040A] overflow-hidden" 
       id="inicio"
-      style={{ backgroundImage: "url('/fondohero.webp')" }}
     >
+      <Image 
+        src="/fondohero.webp" 
+        alt="Fondo Principal" 
+        fill 
+        priority 
+        fetchPriority="high"
+        sizes="100vw"
+        className="object-cover object-center absolute inset-0 z-0 pointer-events-none" 
+      />
       {/* Background glow lines and blur */}
-      <div className="absolute inset-0 bg-[url('/bg-grid.png')] opacity-10" />
       <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-[#0052FF]/20 rounded-full blur-[150px] -translate-y-1/2" />
       
       <div className="container mx-auto px-4 lg:px-8 max-w-[1400px] relative z-10">

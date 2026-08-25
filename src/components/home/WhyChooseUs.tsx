@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 import { CheckCircle2 } from "lucide-react";
 import { useEffect, useRef } from "react";
@@ -82,18 +83,18 @@ export const WhyChooseUs = () => {
 
               {/* The Inner Content */}
               <div 
-                className="relative w-full h-full rounded-[19px] bg-[#050A15] bg-cover bg-center p-3 lg:p-5 z-10 overflow-hidden shadow-inner shadow-[#00D2FF]/5"
-                style={{ backgroundImage: "url('/fondosseccion.png')" }}
+                className="relative w-full h-full rounded-[19px] bg-[#050A15] p-3 lg:p-5 z-10 overflow-hidden shadow-inner shadow-[#00D2FF]/5"
               >
+                <Image src="/fondosseccion.png" alt="" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover object-center absolute inset-0 z-0 opacity-[0.15] mix-blend-screen pointer-events-none" />
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-5">
                   {stats.map((stat, idx) => (
                     <div 
                       key={idx} 
                       className="bg-[#0A101D]/80 backdrop-blur-sm border border-white/5 rounded-xl flex flex-col items-center justify-center p-6 lg:p-8 text-center hover:bg-[#0D1526] transition-colors"
                     >
-                      <h4 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#FABB18] mb-3 drop-shadow-[0_0_15px_rgba(250,187,24,0.3)] tracking-tight">
+                      <div className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#FABB18] mb-3 drop-shadow-[0_0_15px_rgba(250,187,24,0.3)] tracking-tight">
                         <Counter from={stat.from} to={stat.to} prefix={stat.prefix} suffix={stat.suffix} />
-                      </h4>
+                      </div>
                       <p className="text-[10px] lg:text-[11px] text-white font-semibold uppercase tracking-[0.15em] whitespace-pre-line leading-tight">
                         {stat.label}
                       </p>

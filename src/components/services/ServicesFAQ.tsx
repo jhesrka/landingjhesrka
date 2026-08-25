@@ -37,14 +37,12 @@ export const ServicesFAQ = () => {
   return (
     <section className="py-6 relative border-t border-b border-white/5 overflow-hidden bg-[#01040A]">
       {/* Background Image Overlay */}
-      <div 
-        className="absolute inset-0 opacity-[0.15] mix-blend-screen pointer-events-none"
-        style={{
-          backgroundImage: 'url(/fondosseccion.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+      <Image 
+        src="/fondosseccion.png" 
+        alt="" 
+        fill 
+        sizes="(max-width: 768px) 100vw, 100vw"
+        className="opacity-[0.15] mix-blend-screen pointer-events-none object-cover object-center absolute inset-0 z-0" 
       />
 
       <div className="container mx-auto px-4 lg:px-8 max-w-[1400px] relative z-10">

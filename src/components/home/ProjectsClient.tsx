@@ -142,10 +142,10 @@ export const ProjectsClient = ({ projects }: { projects: Project[] }) => {
                    
                    {modalProject.gallery.length > 1 && (
                      <>
-                       <button onClick={prevGalleryImage} className="absolute left-4 w-10 h-10 bg-black/50 border border-white/10 text-white rounded-full flex items-center justify-center hover:bg-[#00D2FF] hover:text-black hover:border-[#00D2FF] transition-all">
+                       <button onClick={prevGalleryImage} aria-label="Imagen anterior" className="absolute left-4 w-10 h-10 bg-black/50 border border-white/10 text-white rounded-full flex items-center justify-center hover:bg-[#00D2FF] hover:text-black hover:border-[#00D2FF] transition-all">
                          <ChevronLeft size={24} />
                        </button>
-                       <button onClick={nextGalleryImage} className="absolute right-4 w-10 h-10 bg-black/50 border border-white/10 text-white rounded-full flex items-center justify-center hover:bg-[#00D2FF] hover:text-black hover:border-[#00D2FF] transition-all">
+                       <button onClick={nextGalleryImage} aria-label="Siguiente imagen" className="absolute right-4 w-10 h-10 bg-black/50 border border-white/10 text-white rounded-full flex items-center justify-center hover:bg-[#00D2FF] hover:text-black hover:border-[#00D2FF] transition-all">
                          <ChevronRight size={24} />
                        </button>
                        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
@@ -185,6 +185,7 @@ export const ProjectsClient = ({ projects }: { projects: Project[] }) => {
                 src={project.image} 
                 alt={project.title} 
                 fill 
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 className="object-cover object-top group-hover/card:scale-105 transition-all duration-700"
               />
               {/* Bottom gradient to blend into content */}

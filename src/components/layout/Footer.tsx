@@ -87,14 +87,12 @@ export const Footer = () => {
             
             {/* Inner content wrapper with Background Image Overlay */}
             <div className="absolute inset-[1px] bg-[#01040A] rounded-[1.5rem] z-0 overflow-hidden">
-              <div 
-                className="absolute inset-0 opacity-[0.25] mix-blend-screen pointer-events-none"
-                style={{
-                  backgroundImage: 'url(/fondosseccion.png)',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat'
-                }}
+              <Image 
+                src="/fondosseccion.png"
+                alt=""
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="opacity-[0.25] mix-blend-screen pointer-events-none object-cover object-center"
               />
             </div>
 
@@ -146,7 +144,7 @@ export const Footer = () => {
                       <div className="grid grid-cols-2 gap-3">
                         <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Correo electrónico" className="bg-transparent border border-[#00D2FF]/30 rounded-lg px-4 py-3 text-[12px] text-white focus:outline-none focus:border-[#00D2FF] transition-colors w-full placeholder:text-[#4A5568]" />
                         <div className="relative">
-                          <select name="projectType" value={formData.projectType} onChange={handleChange} className="bg-transparent border border-[#00D2FF]/30 rounded-lg px-4 py-3 text-[12px] text-[#4A5568] focus:outline-none focus:border-[#00D2FF] transition-colors w-full appearance-none outline-none">
+                          <select name="projectType" aria-label="Tipo de proyecto" value={formData.projectType} onChange={handleChange} className="bg-transparent border border-[#00D2FF]/30 rounded-lg px-4 py-3 text-[12px] text-[#4A5568] focus:outline-none focus:border-[#00D2FF] transition-colors w-full appearance-none outline-none">
                             <option className="bg-[#01040A]" value="">Tipo de proyecto</option>
                             <option className="bg-[#01040A]" value="Web">Página Web</option>
                             <option className="bg-[#01040A]" value="Tienda">Tienda Online</option>
@@ -222,7 +220,7 @@ export const Footer = () => {
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center mb-6">
               <div className="relative w-[220px] h-[60px]">
-                <Image src="/logojhesrka.webp" alt="JHESRKA Developer" fill className="object-contain object-left" />
+                <Image src="/logojhesrka.webp" alt="JHESRKA Developer" fill sizes="(max-width: 768px) 220px, 220px" className="object-contain object-left" />
               </div>
             </Link>
             <p className="text-[12px] text-[#8995A9] leading-relaxed pr-4">
@@ -279,16 +277,16 @@ export const Footer = () => {
               </li>
             </ul>
             <div className="flex items-center gap-4 mt-8">
-              <Link href="#" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
+              <Link href="#" aria-label="WhatsApp" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
               </Link>
-              <Link href="#" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
+              <Link href="#" aria-label="Instagram" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
               </Link>
-              <Link href="#" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
+              <Link href="#" aria-label="LinkedIn" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
               </Link>
-              <Link href="#" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
+              <Link href="#" aria-label="Twitter" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
               </Link>
             </div>
@@ -302,6 +300,7 @@ export const Footer = () => {
                 src="/marcas.webp" 
                 alt="Tarjetas Aceptadas" 
                 fill 
+                sizes="(max-width: 768px) 180px, 180px"
                 className="object-contain p-0.5" 
                 unoptimized 
               />

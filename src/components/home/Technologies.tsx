@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 // We use simple placeholder components since we can't import SVG logos natively without the files.
 // We will mimic the logos with colored text/shapes to match the structure perfectly.
@@ -38,15 +39,15 @@ export const Technologies = () => {
 
           {/* The Inner Content */}
           <div 
-            className="relative w-full h-full rounded-[19px] bg-[#050A15] bg-cover bg-center py-6 px-6 md:px-8 flex flex-col md:flex-row items-center gap-10 z-10 overflow-hidden shadow-inner shadow-[#00D2FF]/5"
-            style={{ backgroundImage: "url('/fondosseccion.png')" }}
+            className="relative w-full h-full rounded-[19px] bg-[#050A15] py-6 px-6 md:px-8 flex flex-col md:flex-row items-center gap-10 z-10 overflow-hidden shadow-inner shadow-[#00D2FF]/5"
           >
+            <Image src="/fondosseccion.png" alt="" fill sizes="(max-width: 768px) 100vw, 100vw" className="object-cover object-center absolute inset-0 z-0 opacity-[0.15] mix-blend-screen pointer-events-none" />
             
-            <div className="flex-shrink-0 text-left border-r border-white/10 pr-10 hidden lg:block">
-              <h3 className="text-[11px] font-bold text-white tracking-[0.2em] leading-relaxed">
+            <div className="flex-shrink-0 text-left border-r border-white/10 pr-10 hidden lg:block relative z-10">
+              <h2 className="text-[11px] font-bold text-white tracking-[0.2em] leading-relaxed">
                 TECNOLOGÍAS QUE <br />
                 UTILIZAMOS
-              </h3>
+              </h2>
             </div>
             
             <div className="flex-1 w-full overflow-hidden relative">

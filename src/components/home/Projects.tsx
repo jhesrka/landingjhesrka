@@ -54,23 +54,23 @@ export const Projects = async () => {
         title: "WISHWAY", 
         category: "Plataforma de Rifas Online", 
         categoryId: "sistemas",
-        image: "/mockups/wishway.jpg", 
-        gallery: ["/mockups/wishway.jpg", "/destacado1.webp"],
+        image: "/destacado1.webp", 
+        gallery: ["/destacado1.webp", "/tarjetas.jpg"],
         link: "#" 
       },
       { 
         title: "OLA PREMIUM", 
         category: "Transporte Ejecutivo", 
         categoryId: "aplicaciones-web",
-        image: "/mockups/ola.jpg", 
+        image: "/tarjetas.jpg", 
         link: "#" 
       },
       { 
         title: "CV3 TALLER", 
         category: "Sitio Web Automotriz", 
         categoryId: "paginas-web",
-        image: "/mockups/cv3.jpg", 
-        previewImage: "/landing1.webp",
+        image: "/landing1.webp", 
+        previewImage: "/tarjetas.jpg",
         link: "#" 
       },
     ];
@@ -79,14 +79,12 @@ export const Projects = async () => {
   return (
     <section className="py-8 relative border-b border-white/5 overflow-hidden" id="portafolio">
       {/* Background Image Overlay */}
-      <div 
-        className="absolute inset-0 opacity-[0.15] mix-blend-screen pointer-events-none"
-        style={{
-          backgroundImage: 'url(/fondosseccion.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+      <Image 
+        src="/fondosseccion.png" 
+        alt="" 
+        fill 
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="opacity-[0.15] mix-blend-screen pointer-events-none object-cover object-center absolute inset-0 z-0" 
       />
 
       <div className="container mx-auto px-4 lg:px-8 max-w-[1400px] relative z-10">

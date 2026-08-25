@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Code2, Cpu, FileSignature, MonitorSmartphone, ShieldCheck, Zap } from "lucide-react";
 
 const features = [
@@ -48,12 +49,12 @@ export const ServicesWhyChooseUs = () => {
 
           {/* The Inner Content */}
           <div 
-            className="relative w-full h-full rounded-[19px] bg-[#050A15] bg-cover bg-center py-8 px-6 md:px-8 flex flex-col xl:flex-row items-center gap-12 xl:gap-8 z-10 overflow-hidden shadow-inner shadow-[#00D2FF]/5"
-            style={{ backgroundImage: "url('/fondosseccion.png')" }}
+            className="relative w-full h-full rounded-[19px] bg-[#050A15] py-8 px-6 md:px-8 flex flex-col xl:flex-row items-center gap-12 xl:gap-8 z-10 overflow-hidden shadow-inner shadow-[#00D2FF]/5"
           >
+            <Image src="/fondosseccion.png" alt="" fill sizes="(max-width: 768px) 100vw, 100vw" className="object-cover object-center absolute inset-0 z-0 opacity-[0.15] mix-blend-screen pointer-events-none" />
             
             {/* Title Area */}
-            <div className="xl:w-1/4 text-center xl:text-left">
+            <div className="xl:w-1/4 text-center xl:text-left relative z-10">
               <h2 className="text-white text-[20px] md:text-[24px] font-bold leading-tight tracking-wide">
                 ¿POR QUÉ ELEGIR <br className="hidden xl:block" />
                 JHESRKA DEVELOPER?
@@ -61,7 +62,7 @@ export const ServicesWhyChooseUs = () => {
             </div>
 
             {/* Features Horizontal List */}
-            <div className="xl:w-3/4 w-full">
+            <div className="xl:w-3/4 w-full relative z-10">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-4">
                 {features.map((feat, idx) => (
                   <div key={idx} className="flex flex-col items-center justify-start text-center group/item">

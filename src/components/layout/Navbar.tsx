@@ -48,7 +48,7 @@ export const Navbar = () => {
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <div className="relative w-[220px] h-[60px]">
-            <Image src="/logojhesrka.webp" alt="JHESRKA Developer" fill className="object-contain object-left" />
+            <Image src="/logojhesrka.webp" alt="JHESRKA Developer" fill sizes="(max-width: 768px) 220px, 220px" className="object-contain object-left" />
           </div>
         </Link>
 
@@ -79,6 +79,7 @@ export const Navbar = () => {
           </Link>
           <button 
             onClick={() => setCartOpen(true)}
+            aria-label="Abrir carrito"
             className="relative text-[#8995A9] hover:text-[#00D2FF] transition-colors p-2 cursor-pointer"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
@@ -94,6 +95,7 @@ export const Navbar = () => {
         <div className="flex items-center gap-2 md:hidden">
           <button 
             onClick={() => setCartOpen(true)}
+            aria-label="Abrir carrito"
             className="relative text-[#8995A9] hover:text-[#00D2FF] transition-colors p-2 cursor-pointer"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
@@ -103,7 +105,7 @@ export const Navbar = () => {
               </span>
             )}
           </button>
-          <button className="text-white p-2">
+          <button aria-label="Abrir menú" className="text-white p-2">
             <Menu size={28} />
           </button>
         </div>

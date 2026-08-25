@@ -18,13 +18,13 @@ export const Testimonials = async () => {
         text: t.content,
         name: t.name,
         company: t.company,
-        avatar: t.avatarUrl || "https://i.pravatar.cc/150",
+        avatar: t.avatarUrl || "https://i.pravatar.cc/50",
         stars: t.rating || 5
       }))
     : [
-        { text: "Excelente trabajo, entendieron perfectamente lo que necesitábamos y superaron nuestras expectativas.", name: "Damián M.", company: "Atucucho Shop", avatar: "https://i.pravatar.cc/150?u=damian", stars: 5 },
-        { text: "Profesionales, responsables y siempre dispuestos a ayudar. Nuestro sistema funciona perfecto.", name: "Verónica A.", company: "WishWay", avatar: "https://i.pravatar.cc/150?u=veronica", stars: 5 },
-        { text: "Nuestra página quedó increíble, moderna y nos ha traído muchos nuevos clientes.", name: "Cristian V.", company: "CV3 Taller", avatar: "https://i.pravatar.cc/150?u=cristian", stars: 5 },
+        { text: "Excelente trabajo, entendieron perfectamente lo que necesitábamos y superaron nuestras expectativas.", name: "Damián M.", company: "Atucucho Shop", avatar: "https://i.pravatar.cc/50?u=damian", stars: 5 },
+        { text: "Profesionales, responsables y siempre dispuestos a ayudar. Nuestro sistema funciona perfecto.", name: "Verónica A.", company: "WishWay", avatar: "https://i.pravatar.cc/50?u=veronica", stars: 5 },
+        { text: "Nuestra página quedó increíble, moderna y nos ha traído muchos nuevos clientes.", name: "Cristian V.", company: "CV3 Taller", avatar: "https://i.pravatar.cc/50?u=cristian", stars: 5 },
       ];
 
   return (
@@ -43,10 +43,10 @@ export const Testimonials = async () => {
           {/* Carousel */}
           <div className="lg:w-3/4 w-full relative group">
             {/* Nav Arrows */}
-            <button className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 text-[#00D2FF] hover:scale-125 transition-transform drop-shadow-[0_0_10px_rgba(0,210,255,0.5)] z-10">
+            <button aria-label="Anterior testimonio" className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 text-[#00D2FF] hover:scale-125 transition-transform drop-shadow-[0_0_10px_rgba(0,210,255,0.5)] z-10">
               <ChevronLeft size={28} />
             </button>
-            <button className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 text-[#00D2FF] hover:scale-125 transition-transform drop-shadow-[0_0_10px_rgba(0,210,255,0.5)] z-10">
+            <button aria-label="Siguiente testimonio" className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 text-[#00D2FF] hover:scale-125 transition-transform drop-shadow-[0_0_10px_rgba(0,210,255,0.5)] z-10">
               <ChevronRight size={28} />
             </button>
 
@@ -72,7 +72,7 @@ export const Testimonials = async () => {
                         className="w-10 h-10 rounded-full border border-white/10 object-cover"
                       />
                       <div>
-                        <h4 className="text-[13px] font-bold text-white">{test.name}</h4>
+                        <div className="text-[13px] font-bold text-white">{test.name}</div>
                         <p className="text-[11px] text-[#8995A9]">{test.company}</p>
                       </div>
                     </div>

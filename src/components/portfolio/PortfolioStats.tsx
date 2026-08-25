@@ -3,6 +3,7 @@
 import { Briefcase, Users, Star, Rocket } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useInView, animate } from "framer-motion";
+import Image from "next/image";
 
 const stats = [
   { icon: Briefcase, from: 0, to: 150, prefix: "+", suffix: "", title: "Proyectos completados\ncon éxito" },
@@ -49,9 +50,9 @@ export const PortfolioStats = () => {
 
       {/* The Inner Content */}
       <div 
-        className="relative w-full h-full rounded-[19px] bg-[#060D1A] p-6 lg:p-8 z-10 shadow-inner shadow-[#00D2FF]/5 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url('/fondosseccion.png')` }}
+        className="relative w-full h-full rounded-[19px] bg-[#060D1A] p-6 lg:p-8 z-10 shadow-inner shadow-[#00D2FF]/5"
       >
+        <Image src="/fondosseccion.png" alt="" fill sizes="(max-width: 768px) 100vw, 100vw" className="object-cover object-center absolute inset-0 z-0 opacity-100 pointer-events-none rounded-[19px]" />
         {/* Dark overlay to ensure text remains readable over the image */}
         <div className="absolute inset-0 bg-[#060D1A]/30 rounded-[19px] z-0" />
         
