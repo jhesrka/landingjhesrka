@@ -5,11 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowRight } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { useCartStore } from "@/store/cartStore";
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   
   // Safe way to use zustand persist with hydration (optional, but good practice)
@@ -105,11 +107,61 @@ export const Navbar = () => {
               </span>
             )}
           </button>
-          <button aria-label="Abrir menú" className="text-white p-2">
+          <button onClick={() => setIsMobileMenuOpen(true)} aria-label="Abrir menú" className="text-white p-2">
             <Menu size={28} />
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+            className="fixed inset-0 bg-[#01040A] z-[100] flex flex-col pt-6 px-6"
+          >
+            <div className="flex items-center justify-between mb-12">
+              <div className="relative w-[180px] h-[50px]">
+                <Image src="/logojhesrka.webp" alt="JHESRKA Developer" fill sizes="180px" className="object-contain object-left" />
+              </div>
+              <button onClick={() => setIsMobileMenuOpen(false)} aria-label="Cerrar menú" className="text-white p-2 hover:text-[#00D2FF] transition-colors bg-white/5 rounded-full">
+                <X size={28} />
+              </button>
+            </div>
+            
+            <nav className="flex flex-col gap-6">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href || (link.href === "/" && pathname === "/");
+                return (
+                  <Link 
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`text-2xl font-bold transition-colors ${
+                      isActive ? "text-[#FABB18]" : "text-white/80 hover:text-white"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
+              
+              <div className="w-full h-[1px] bg-white/10 my-4" />
+              
+              <Link 
+                href="/contacto" 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center justify-between w-full px-6 py-4 rounded-xl border border-[#FABB18]/50 bg-[#FABB18]/10 text-[#FABB18] text-lg font-bold"
+              >
+                Solicitar Cotización <ArrowRight size={20} />
+              </Link>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

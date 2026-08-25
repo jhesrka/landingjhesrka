@@ -42,7 +42,8 @@ export const TrustedBy = () => {
             </div>
             
             <div className="flex-1 w-full overflow-hidden relative">
-              <div className="flex items-center justify-between gap-12 overflow-x-auto no-scrollbar py-2 px-4">
+              {/* Desktop View */}
+              <div className="hidden md:flex items-center justify-between gap-12 overflow-x-auto no-scrollbar py-2 px-4">
                 {companies.map((company, idx) => (
                   <div key={idx} className="flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-105">
                     <Image 
@@ -51,6 +52,21 @@ export const TrustedBy = () => {
                       width={company.width} 
                       height={60} 
                       className="object-contain max-h-[50px] w-auto"
+                    />
+                  </div>
+                ))}
+              </div>
+              
+              {/* Mobile View - Infinite Scroll */}
+              <div className="flex md:hidden w-max animate-infinite-scroll hover:[animation-play-state:paused] py-2">
+                {[...companies, ...companies].map((company, idx) => (
+                  <div key={idx} className="flex items-center justify-center flex-shrink-0 mx-6">
+                    <Image 
+                      src={company.logo} 
+                      alt={`Logo de ${company.name}`} 
+                      width={company.width} 
+                      height={60} 
+                      className="object-contain max-h-[40px] w-auto"
                     />
                   </div>
                 ))}

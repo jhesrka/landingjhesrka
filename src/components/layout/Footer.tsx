@@ -214,10 +214,10 @@ export const Footer = () => {
 
       {/* FOOTER BOTTOM */}
       <div className="container mx-auto px-4 lg:px-8 max-w-[1400px]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 py-16 border-t border-white/5">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-8 py-10 md:py-16 border-t border-white/5">
           
           {/* Logo Column */}
-          <div className="lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center mb-6">
               <div className="relative w-[220px] h-[60px]">
                 <Image src="/logojhesrka.webp" alt="JHESRKA Developer" fill sizes="(max-width: 768px) 220px, 220px" className="object-contain object-left" />
@@ -229,7 +229,7 @@ export const Footer = () => {
           </div>
 
           {/* NAVEGACIÓN */}
-          <div className="lg:col-span-1">
+          <div className="col-span-1 lg:col-span-1">
             <h4 className="text-white text-[13px] font-bold mb-6 uppercase tracking-wider">Navegación</h4>
             <ul className="space-y-4">
               {[
@@ -249,7 +249,7 @@ export const Footer = () => {
           </div>
 
           {/* SERVICIOS */}
-          <div className="lg:col-span-1">
+          <div className="col-span-1 lg:col-span-1">
             <h4 className="text-white text-[13px] font-bold mb-6 uppercase tracking-wider">Servicios</h4>
             <ul className="space-y-4">
               {["Páginas Web", "Tiendas Online", "Aplicaciones Web", "Sistemas Empresariales", "Landing Pages", "Mantenimiento Web"].map((link) => (
@@ -263,7 +263,7 @@ export const Footer = () => {
           </div>
 
           {/* CONTACTO */}
-          <div className="lg:col-span-1">
+          <div className="col-span-2 md:col-span-1 lg:col-span-1">
             <h4 className="text-white text-[13px] font-bold mb-6 uppercase tracking-wider">Contacto</h4>
             <ul className="space-y-4">
               <li className="flex items-center gap-3 text-[#8995A9] text-[12px]">
@@ -293,7 +293,7 @@ export const Footer = () => {
           </div>
 
           {/* MÉTODOS DE PAGO */}
-          <div className="lg:col-span-1 flex flex-col lg:items-start text-left">
+          <div className="col-span-2 md:col-span-1 lg:col-span-1 flex flex-col lg:items-start text-left">
             <h4 className="text-white text-[13px] font-bold mb-6 uppercase tracking-wider w-full">Aceptamos</h4>
             <div className="w-[180px] h-[50px] bg-white rounded-md relative opacity-90 hover:opacity-100 transition-opacity">
               <Image 

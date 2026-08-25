@@ -91,3 +91,11 @@ body {
 .animate-border-trace {
   animation: borderTrace 15s linear infinite;
 }
+
+@keyframes infiniteScrollMobile {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-infinite-scroll {
+  animation: infiniteScrollMobile 20s linear infinite;
+}
