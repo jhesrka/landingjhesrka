@@ -128,7 +128,7 @@ export default function AnalyticsPage() {
                 fontSize={11} 
                 tickLine={false} 
                 axisLine={false}
-                tickFormatter={(value) => \`\${value}\`}
+                tickFormatter={(value) => `${value}`}
               />
               <Tooltip 
                 cursor={{ fill: '#ffffff05' }}
