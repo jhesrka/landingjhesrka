@@ -42,7 +42,9 @@ export const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 w-full transition-all duration-300 ${
+        isMobileMenuOpen ? "z-[999]" : "z-50"
+      } ${
         isScrolled ? "bg-[#020610]/90 backdrop-blur-md border-b border-white/5 py-4" : "bg-transparent py-6"
       }`}
     >
@@ -121,9 +123,9 @@ export const Navbar = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: "spring", bounce: 0, duration: 0.4 }}
-            className="fixed inset-0 bg-[#01040A] z-[100] flex flex-col pt-6 px-6"
+            className="fixed inset-0 bg-[#01040A] z-[999] flex flex-col pt-6 px-6 overflow-y-auto min-h-screen"
           >
-            <div className="flex items-center justify-between mb-12">
+            <div className="flex items-center justify-between mb-12 flex-shrink-0">
               <div className="relative w-[180px] h-[50px]">
                 <Image src="/logojhesrka.webp" alt="JHESRKA Developer" fill sizes="180px" className="object-contain object-left" />
               </div>
