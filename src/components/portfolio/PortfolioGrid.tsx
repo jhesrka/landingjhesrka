@@ -41,7 +41,7 @@ const TechConfig: Record<string, { icon: any; color: string }> = {
 
 export const PortfolioGrid = ({ projects }: { projects: Project[] }) => {
   const [modalProject, setModalProject] = useState<Project | null>(null);
-  const [modalType, setModalType] = useState<'scroll' | 'gallery' | null>(null);
+  const [modalType, setModalType] = useState<'scroll' | 'gallery' | 'description' | null>(null);
   const [currentGalleryIdx, setCurrentGalleryIdx] = useState(0);
 
   // Pagination State
@@ -115,9 +115,21 @@ export const PortfolioGrid = ({ projects }: { projects: Project[] }) => {
               {project.subtitle}
             </p>
             
-            <p className="text-[13px] text-[#DCE6FF]/70 mb-6 leading-relaxed flex-grow">
-              {project.description}
-            </p>
+            <div className="flex-grow mb-6 flex flex-col">
+              <p className="text-[13px] text-[#DCE6FF]/70 leading-relaxed line-clamp-2">
+                {project.description}
+              </p>
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  setModalProject(project);
+                  setModalType('description');
+                }}
+                className="text-[12px] text-[#00D2FF] hover:text-white font-semibold mt-1 self-start transition-colors cursor-pointer"
+              >
+                Ver más
+              </button>
+            </div>
 
             {/* Technologies */}
             <div className="mb-6">
@@ -292,6 +304,33 @@ export const PortfolioGrid = ({ projects }: { projects: Project[] }) => {
                    <p>No hay imágenes disponibles para este sistema.</p>
                  </div>
                )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {modalProject && modalType === 'description' && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" onClick={() => setModalProject(null)} />
+          
+          <div className="relative bg-[#060D1A] border border-[#1A2333] rounded-[24px] p-6 md:p-8 w-full max-w-2xl flex flex-col shadow-[0_0_50px_rgba(0,210,255,0.15)] animate-in fade-in zoom-in duration-300">
+            {/* Header del Modal */}
+            <div className="flex justify-between items-start mb-6 shrink-0">
+              <div>
+                <h3 className="text-white font-bold text-xl md:text-2xl uppercase tracking-wider">
+                  {modalProject.title}
+                </h3>
+                <p className="text-[#8995A9] text-[13px] font-medium mt-1">
+                  Descripción completa
+                </p>
+              </div>
+              <button onClick={() => setModalProject(null)} className="text-[#8995A9] hover:text-[#00D2FF] transition-colors p-2 bg-white/5 rounded-full hover:bg-white/10 shrink-0">
+                <X size={20} />
+              </button>
+            </div>
+            
+            <div className="text-[#DCE6FF]/90 text-[15px] leading-relaxed max-h-[60vh] overflow-y-auto custom-scrollbar pr-2 whitespace-pre-wrap">
+              {modalProject.description}
             </div>
           </div>
         </div>
