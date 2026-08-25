@@ -42,3 +42,10 @@ export const settings = pgTable('settings', {
   whatsappNumber: varchar('whatsapp_number', { length: 50 }),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
+
+export const pageViews = pgTable('page_views', {
+  id: serial('id').primaryKey(),
+  path: varchar('path', { length: 255 }).notNull(),
+  visitorId: varchar('visitor_id', { length: 255 }).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});

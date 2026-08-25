@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LayoutDashboard, Users, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, Users, Settings, LogOut, BarChart } from "lucide-react";
 
 export default function DashboardLayout({
   children,
@@ -26,6 +26,9 @@ export default function DashboardLayout({
         <nav className="flex-1 py-8 px-4 flex flex-col gap-2">
           <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 text-[#8995A9] hover:text-[#00D2FF] hover:bg-[#00D2FF]/5 rounded-lg font-bold text-[13px] transition-all">
             <LayoutDashboard size={18} /> Resumen
+          </Link>
+          <Link href="/dashboard/estadisticas" className="flex items-center gap-3 px-4 py-3 text-[#8995A9] hover:text-white hover:bg-white/5 rounded-lg font-bold text-[13px] transition-all">
+            <BarChart size={18} /> Estadísticas
           </Link>
           <Link href="#" className="flex items-center gap-3 px-4 py-3 text-[#8995A9] hover:text-white hover:bg-white/5 rounded-lg font-bold text-[13px] transition-all">
             <Users size={18} /> Leads (Contactos)

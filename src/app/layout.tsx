@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { CartSidebar } from "@/components/store/CartSidebar";
+import { PageTracker } from "@/components/ui/PageTracker";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -89,6 +90,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} bg-[#01040A] text-white antialiased`}>
+        <PageTracker />
         {children}
         <CartSidebar />
       </body>
