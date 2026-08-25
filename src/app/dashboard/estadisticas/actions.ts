@@ -7,17 +7,17 @@ import { sql, desc, gte } from "drizzle-orm";
 export async function getAnalyticsData() {
   try {
     // 1. Total views
-    const totalViewsResult = await db.select({ count: sql<number>\`count(*)\` }).from(pageViews);
+    const totalViewsResult = await db.select({ count: sql<number>`count(*)` }).from(pageViews);
     const totalViews = Number(totalViewsResult[0]?.count) || 0;
 
     // 2. Unique visitors
-    const uniqueVisitorsResult = await db.select({ count: sql<number>\`count(distinct visitor_id)\` }).from(pageViews);
+    const uniqueVisitorsResult = await db.select({ count: sql<number>`count(distinct visitor_id)` }).from(pageViews);
     const uniqueVisitors = Number(uniqueVisitorsResult[0]?.count) || 0;
 
     // 3. Today's views
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const todayViewsResult = await db.select({ count: sql<number>\`count(*)\` })
+    const todayViewsResult = await db.select({ count: sql<number>`count(*)` })
       .from(pageViews)
       .where(gte(pageViews.createdAt, today));
     const todayViews = Number(todayViewsResult[0]?.count) || 0;
@@ -28,13 +28,13 @@ export async function getAnalyticsData() {
     thirtyDaysAgo.setHours(0, 0, 0, 0);
 
     const viewsByDate = await db.select({
-      date: sql<string>\`date_trunc('day', \${pageViews.createdAt})::date\`,
-      count: sql<number>\`count(*)\`
+      date: sql<string>`date_trunc('day', ${pageViews.createdAt})::date`,
+      count: sql<number>`count(*)`
     })
     .from(pageViews)
     .where(gte(pageViews.createdAt, thirtyDaysAgo))
-    .groupBy(sql\`date_trunc('day', \${pageViews.createdAt})::date\`)
-    .orderBy(sql\`date_trunc('day', \${pageViews.createdAt})::date\`);
+    .groupBy(sql`date_trunc('day', ${pageViews.createdAt})::date`)
+    .orderBy(sql`date_trunc('day', ${pageViews.createdAt})::date`);
 
     // Format data to fill in missing days with 0
     const chartData = [];
