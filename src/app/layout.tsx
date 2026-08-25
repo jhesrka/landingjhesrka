@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   keywords: ["Desarrollo Web Quito", "Páginas Web Ecuador", "Tiendas Online", "Ecommerce a medida", "Desarrollo de Software", "Jhesrka Developer", "Aplicaciones Web", "Soluciones Tecnológicas Empresariales"],
   authors: [{ name: "Jhesrka Developer" }],
   creator: "Jhesrka Developer",
+  icons: {
+    icon: '/FAVICON.png',
+  },
   openGraph: {
     type: "website",
     locale: "es_EC",
