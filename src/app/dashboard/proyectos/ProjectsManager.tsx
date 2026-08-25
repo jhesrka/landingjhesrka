@@ -284,36 +284,6 @@ export default function ProjectsManager({ initialProjects }: { initialProjects: 
                 )}
               </div>
 
-              {/* Condicional para la imagen de vista previa */}
-              {['paginas-web', 'tiendas-online', 'landing'].includes(categoryId) && (
-                <div className="border border-[#1A2333] rounded-lg p-3 bg-[#01040A]">
-                  <label className="block text-xs text-[#8995A9] uppercase mb-2 font-bold">Imagen de Vista Previa (Larga para Scroll)</label>
-                  
-                  {previewImagePreviewUrl && (
-                    <div className="mb-3 relative h-48 w-full rounded-md overflow-hidden bg-black border border-white/10">
-                      <Image src={previewImagePreviewUrl} alt="Preview" fill className="object-cover object-top" />
-                    </div>
-                  )}
-                  
-                  <div className="relative">
-                    <input 
-                      type="file" 
-                      accept="image/*"
-                      onChange={handlePreviewImageChange}
-                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    />
-                    <div className="flex items-center justify-center gap-2 border-2 border-dashed border-[#1A2333] hover:border-[#00D2FF] rounded-lg p-3 text-sm text-[#8995A9] transition-colors">
-                      <Upload size={16} />
-                      <span>Subir captura completa (scroll)</span>
-                    </div>
-                  </div>
-                  
-                  {!previewImageFile && existingPreviewImageUrl && (
-                    <p className="text-[10px] text-gray-500 mt-2">Imagen actual: {existingPreviewImageUrl}</p>
-                  )}
-                </div>
-              )}
-
               <div>
                 <label className="block text-xs text-[#8995A9] uppercase mb-1 font-bold">Enlace del Proyecto (Link)</label>
                 <input 

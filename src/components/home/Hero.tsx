@@ -69,7 +69,7 @@ export const Hero = () => {
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
               className="hidden lg:flex absolute right-[38%] lg:right-[42%] top-[45%] -translate-y-1/2 w-[500px] h-[500px] items-center justify-center pointer-events-none"
             >
-              <Image src="/favicon.png" alt="Decoración" width={400} height={400} className="object-contain opacity-90 animate-pulse" />
+              <Image src="/FAVICON.png" alt="Decoración" width={400} height={400} className="object-contain opacity-90 animate-pulse" priority />
             </motion.div>
 
             {/* The vertical feature list on the far right */}

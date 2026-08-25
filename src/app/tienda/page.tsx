@@ -10,7 +10,7 @@ const webPackages: PricingPackage[] = [
     title: "LANDING PAGE",
     price: 120,
     paymentType: "Pago único",
-    image: "/destacado1.webp",
+    image: "/landing.webp",
     previewImage: "/landing1.webp",
     deliveryTime: "Entrega: 3 - 5 días hábiles",
     features: [
@@ -60,19 +60,20 @@ const webPackages: PricingPackage[] = [
     deliveryTime: "Entrega: 10 - 15 días hábiles",
     features: [
       { text: "Hasta 10 páginas", included: true },
-      { text: "Blog integrado", included: true },
       { text: "Diseño premium y animaciones", included: true },
       { text: "Optimización SEO avanzada", included: true },
       { text: "Formularios avanzados", included: true },
       { text: "Integración con redes sociales", included: true },
       { text: "Optimización de velocidad", included: true },
-      { text: "Soporte técnico básico", included: true },
+      { text: "No incluye dominio", included: false },
+      { text: "No incluye hosting", included: false },
     ],
     gallery: [
-      "/destacado1.webp",
-      "/landing1.webp",
-      "/portafolio.webp",
-      "/mockups/wishway.jpg"
+      "/empresarial/inicio.webp",
+      "/empresarial/nosotros.webp",
+      "/empresarial/servicios.webp",
+      "/empresarial/proyectos.webp",
+      "/empresarial/contacto.webp"
     ]
   }
 ];
@@ -83,64 +84,72 @@ const storePackages: PricingPackage[] = [
     title: "TIENDA BÁSICA",
     price: 150,
     paymentType: "Pago único",
-    image: "/portafolio.webp",
+    image: "/tienda/tienda (1).webp",
+    previewImage: "/tienda/tienda (1).webp",
     deliveryTime: "Entrega: 5 - 7 días hábiles",
     features: [
-      { text: "WooCommerce", included: true },
-      { text: "Diseño de productos", included: true },
-      { text: "Carrito de compras", included: true },
-      { text: "Checkout seguro", included: true },
-      { text: "Gestión de productos", included: true },
-      { text: "Panel administrativo", included: true },
+      { text: "Plataforma WooCommerce", included: true },
+      { text: "Gestión de inventario y pedidos", included: true },
+      { text: "Configuración de pagos y envíos", included: true },
+      { text: "Carrito y Checkout seguro", included: true },
+      { text: "Cupones de descuento", included: true },
+      { text: "Panel autoadministrable", included: true },
       { text: "No incluye dominio", included: false },
       { text: "No incluye hosting", included: false },
+    ],
+    galleryLabels: ["Tienda"],
+    gallery: [
+      "/tienda/tienda (1).webp"
     ]
   },
   {
     id: "store-profesional",
     title: "TIENDA PROFESIONAL",
-    price: 200,
+    price: 250,
     paymentType: "Pago único",
     image: "/destacado1.webp",
     deliveryTime: "Entrega: 7 - 10 días hábiles",
     features: [
-      { text: "Tienda WooCommerce", included: true },
+      { text: "Tienda a medida (Código puro)", included: true },
       { text: "Diseño personalizado", included: true },
-      { text: "Pasarela de pagos", included: true },
-      { text: "Panel administrativo", included: true },
-      { text: "Diseño responsive", included: true },
-      { text: "Integración con WhatsApp", included: true },
+      { text: "Pasarela de pago a elección", included: true },
+      { text: "Panel administrativo básico", included: true },
+      { text: "Diseño responsivo", included: true },
+      { text: "3 Páginas (Inicio, Tienda, Contacto)", included: true },
       { text: "No incluye dominio", included: false },
       { text: "No incluye hosting", included: false },
     ],
+    galleryLabels: ["Inicio", "Tienda", "Contacto"],
     gallery: [
-      "/destacado1.webp",
-      "/mockups/cv3.jpg",
-      "/portafolio.webp"
+      "/tiendabasica/home.webp",
+      "/tiendabasica/tienda.webp",
+      "/tiendabasica/contactos.webp"
     ]
   },
   {
     id: "store-premium",
     title: "TIENDA PREMIUM",
-    price: 350,
+    price: 500,
     paymentType: "Pago único",
     image: "/portafolio.webp",
     deliveryTime: "Entrega: 10 - 15 días hábiles",
     features: [
-      { text: "Hasta 10 páginas", included: true },
-      { text: "WooCommerce completo", included: true },
-      { text: "Blog integrado", included: true },
-      { text: "Categorías limitadas", included: true },
-      { text: "Cupones de descuento", included: true },
-      { text: "Productos ilimitados", included: true },
-      { text: "Optimización SEO", included: true },
-      { text: "Soporte técnico básico", included: true },
+      { text: "Tienda a medida (Código puro)", included: true },
+      { text: "Diseño premium con animaciones", included: true },
+      { text: "Múltiples pasarelas de pago", included: true },
+      { text: "Panel administrativo avanzado", included: true },
+      { text: "Hasta 8 Páginas", included: true },
+      { text: "Optimización SEO y Velocidad", included: true },
+      { text: "No incluye dominio", included: false },
+      { text: "No incluye hosting", included: false },
     ],
+    galleryLabels: ["Inicio", "Nosotros", "Tienda", "Colecciones", "Contacto"],
     gallery: [
-      "/portafolio.webp",
-      "/destacado1.webp",
-      "/landing1.webp",
-      "/mockups/wishway.jpg"
+      "/tiendapremium/inicio.webp",
+      "/tiendapremium/nosotros.webp",
+      "/tiendapremium/tienda.webp",
+      "/tiendapremium/colecciones.webp",
+      "/tiendapremium/contactos.webp"
     ]
   }
 ];

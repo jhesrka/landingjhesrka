@@ -25,22 +25,6 @@ async function processImage(file: File): Promise<string> {
   return `/uploads/${filename}`;
 }
 
-async function processLongImage(file: File): Promise<string> {
-  const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
-  
-  const filename = `${Date.now()}-preview-${file.name.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9]/g, "_")}.webp`;
-  const publicDir = path.join(process.cwd(), 'public');
-  const filepath = path.join(publicDir, 'uploads', filename);
-
-  // Resize width only, keep original height ratio, convert to webp
-  await sharp(buffer)
-    .resize(1200, null, { withoutEnlargement: true })
-    .webp({ quality: 80 })
-    .toFile(filepath);
-
-  return `/uploads/${filename}`;
-}
 
 async function deleteOldImage(imageUrl: string | null) {
   if (!imageUrl || !imageUrl.startsWith('/uploads/')) return;
@@ -78,10 +62,7 @@ export async function addProject(formData: FormData) {
 
     if (imageFile && imageFile.size > 0) {
       imageUrl = await processImage(imageFile);
-    }
-    
-    if (previewImageFile && previewImageFile.size > 0) {
-      previewImageUrl = await processLongImage(previewImageFile);
+      previewImageUrl = imageUrl; // Usar la misma URL para la vista previa
     }
 
     await db.insert(projects).values({
@@ -133,13 +114,13 @@ export async function updateProject(id: number, formData: FormData) {
 
     if (imageFile && imageFile.size > 0) {
       imageUrl = await processImage(imageFile);
-      // Delete old image since we are replacing it
-      await deleteOldImage(oldImageUrl);
-    }
-    
-    if (previewImageFile && previewImageFile.size > 0) {
-      previewImageUrl = await processLongImage(previewImageFile);
-      await deleteOldImage(oldPreviewImageUrl);
+      previewImageUrl = imageUrl; // Actualizar ambas a la misma imagen nueva
+      
+      // Eliminar ambas imágenes anteriores para no ocupar espacio
+      if (oldImageUrl) await deleteOldImage(oldImageUrl);
+      if (oldPreviewImageUrl && oldPreviewImageUrl !== oldImageUrl) {
+        await deleteOldImage(oldPreviewImageUrl);
+      }
     }
 
     await db.update(projects)

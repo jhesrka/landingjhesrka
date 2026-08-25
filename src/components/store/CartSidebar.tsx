@@ -3,6 +3,7 @@
 import { useCartStore } from "@/store/cartStore";
 import { X, ShoppingCart, Trash2, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import Script from "next/script";
 
 declare global {
   interface Window {
@@ -16,25 +17,9 @@ export function CartSidebar() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [showPayphone, setShowPayphone] = useState(false);
 
-  // Cargar SDK de PayPhone al abrir el carrito
+  // Resetear estado al cerrar el carrito
   useEffect(() => {
-    if (isCartOpen) {
-      if (!document.getElementById("payphone-css")) {
-        const link = document.createElement("link");
-        link.id = "payphone-css";
-        link.href = "https://cdn.payphonetodoesposible.com/box/v2.0/payphone-payment-box.css";
-        link.rel = "stylesheet";
-        document.head.appendChild(link);
-      }
-      if (!document.getElementById("payphone-js")) {
-        const script = document.createElement("script");
-        script.id = "payphone-js";
-        script.src = "https://cdn.payphonetodoesposible.com/box/v2.0/payphone-payment-box.js";
-        script.type = "module";
-        document.head.appendChild(script);
-      }
-    } else {
-      // Resetear estado al cerrar el carrito
+    if (!isCartOpen) {
       setShowPayphone(false);
       setIsProcessing(false);
     }
@@ -106,6 +91,8 @@ export function CartSidebar() {
 
   return (
     <>
+      <link rel="stylesheet" href="https://cdn.payphonetodoesposible.com/box/v2.0/payphone-payment-box.css" />
+      <Script src="https://cdn.payphonetodoesposible.com/box/v2.0/payphone-payment-box.js" type="module" strategy="lazyOnload" />
       <div 
         className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[99]"
         onClick={() => setCartOpen(false)}

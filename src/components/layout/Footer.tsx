@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { MessageSquare, ArrowRight, Clock, ShieldCheck, Cog, Award, MapPin, Phone, Mail, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { PopupModal } from "react-calendly";
+import dynamic from "next/dynamic";
+const PopupModal = dynamic(() => import("react-calendly").then(mod => mod.PopupModal), { ssr: false });
 import { useContactForm } from "@/hooks/useContactForm";
 import { usePathname } from "next/navigation";
 import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
@@ -293,10 +294,19 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* SÍGUENOS / MAP */}
-          <div className="lg:col-span-1 flex flex-col lg:items-end text-left lg:text-right">
-            <h4 className="text-white text-[13px] font-bold mb-6 uppercase tracking-wider w-full">Síguenos</h4>
-            <div className="w-full h-32 bg-[url('/map-placeholder.png')] bg-cover bg-center opacity-30 rounded-lg mb-4 bg-[#1A2333]" />
+          {/* MÉTODOS DE PAGO */}
+          <div className="lg:col-span-1 flex flex-col lg:items-start text-left">
+            <h4 className="text-white text-[13px] font-bold mb-6 uppercase tracking-wider w-full">Aceptamos</h4>
+            <div className="w-[180px] h-[50px] bg-white rounded-md relative opacity-90 hover:opacity-100 transition-opacity">
+              <Image 
+                src="/marcas.webp" 
+                alt="Tarjetas Aceptadas" 
+                fill 
+                className="object-contain p-0.5" 
+                unoptimized 
+              />
+            </div>
+            <p className="text-[#8995A9] text-[11px] mt-4 w-full">Pagos seguros con crédito y débito.</p>
           </div>
 
         </div>
