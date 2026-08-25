@@ -50,20 +50,58 @@ export async function getAnalyticsData() {
       });
     }
 
+    // 5. Top Pages
+    const topPages = await db.select({
+      path: pageViews.path,
+      views: sql<number>`count(*)`
+    })
+    .from(pageViews)
+    .groupBy(pageViews.path)
+    .orderBy(desc(sql`count(*)`))
+    .limit(5);
+
+    // 6. Top Referrers
+    const topReferrers = await db.select({
+      referer: pageViews.referer,
+      views: sql<number>`count(*)`
+    })
+    .from(pageViews)
+    .where(sql`${pageViews.referer} IS NOT NULL`)
+    .groupBy(pageViews.referer)
+    .orderBy(desc(sql`count(*)`))
+    .limit(5);
+
+    // 7. Top Countries
+    const topCountries = await db.select({
+      country: pageViews.country,
+      views: sql<number>`count(*)`
+    })
+    .from(pageViews)
+    .where(sql`${pageViews.country} IS NOT NULL`)
+    .groupBy(pageViews.country)
+    .orderBy(desc(sql`count(*)`))
+    .limit(5);
+
     return {
       stats: {
         total: totalViews,
         today: todayViews,
         unique: uniqueVisitors
       },
-      chartData
+      chartData,
+      topPages,
+      topReferrers,
+      topCountries
     };
 
   } catch (error) {
     console.error("Failed to fetch analytics:", error);
     return {
       stats: { total: 0, today: 0, unique: 0 },
-      chartData: []
+      chartData: [],
+      topPages: [],
+      topReferrers: [],
+      topCountries: []
     };
   }
 }

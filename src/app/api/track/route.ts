@@ -6,10 +6,16 @@ import crypto from "crypto";
 
 export async function POST(req: Request) {
   try {
-    const { path } = await req.json();
+    const { path, referer: clientReferer } = await req.json();
     if (!path) {
       return NextResponse.json({ error: "Path is required" }, { status: 400 });
     }
+
+    // Extract headers
+    const userAgent = req.headers.get("user-agent") || null;
+    const referer = clientReferer || req.headers.get("referer") || null;
+    // Vercel specific headers for country
+    const country = req.headers.get("x-vercel-ip-country") || null;
 
     // Usar cookies para identificar visitantes únicos anónimos
     const cookieStore = await cookies();
@@ -28,6 +34,9 @@ export async function POST(req: Request) {
     await db.insert(pageViews).values({
       path,
       visitorId,
+      userAgent,
+      referer,
+      country
     });
 
     return NextResponse.json({ success: true });

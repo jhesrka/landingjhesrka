@@ -2,20 +2,26 @@
 
 import { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
-import { Activity, Users, Eye, ArrowUpRight } from "lucide-react";
+import { Activity, Users, Eye, ArrowUpRight, Globe, Link, FileText } from "lucide-react";
 import { getAnalyticsData } from "./actions";
 
 export default function AnalyticsPage() {
   const [data, setData] = useState<{date: string, views: number}[]>([]);
   const [stats, setStats] = useState({ total: 0, today: 0, unique: 0 });
+  const [topPages, setTopPages] = useState<{path: string, views: number}[]>([]);
+  const [topReferrers, setTopReferrers] = useState<{referer: string | null, views: number}[]>([]);
+  const [topCountries, setTopCountries] = useState<{country: string | null, views: number}[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await getAnalyticsData();
-        setData(result.chartData);
-        setStats(result.stats);
+        setData(result.chartData || []);
+        setStats(result.stats || { total: 0, today: 0, unique: 0 });
+        setTopPages(result.topPages || []);
+        setTopReferrers(result.topReferrers || []);
+        setTopCountries(result.topCountries || []);
       } catch (error) {
         console.error("Error loading analytics:", error);
       } finally {
@@ -38,8 +44,8 @@ export default function AnalyticsPage() {
     <div className="flex flex-col gap-8 pb-10">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-2">
         <div>
-          <h1 className="text-white text-[28px] font-extrabold tracking-tight mb-2">Estadísticas de Tráfico</h1>
-          <p className="text-[#8995A9] text-[14px]">Monitorea el rendimiento de tu sitio web y visitas diarias.</p>
+          <h1 className="text-white text-[28px] font-extrabold tracking-tight mb-2">Centro de Comando: Tráfico</h1>
+          <p className="text-[#8995A9] text-[14px]">Análisis avanzado en tiempo real del rendimiento de tu plataforma.</p>
         </div>
       </div>
 
@@ -51,9 +57,6 @@ export default function AnalyticsPage() {
             <div className="w-10 h-10 rounded-full bg-[#00D2FF]/10 flex items-center justify-center text-[#00D2FF]">
               <Eye size={20} />
             </div>
-            <span className="flex items-center text-green-400 text-[12px] font-bold bg-green-400/10 px-2 py-1 rounded-md">
-              +12% <ArrowUpRight size={14} className="ml-1" />
-            </span>
           </div>
           <p className="text-[#8995A9] text-[13px] font-bold uppercase tracking-widest mb-1">Visitas Totales</p>
           <h3 className="text-white text-[32px] font-extrabold">{stats.total}</h3>
@@ -84,11 +87,13 @@ export default function AnalyticsPage() {
 
       {/* Main Chart */}
       <div className="bg-[#060D1A]/80 border border-[#1A2333] rounded-[24px] p-6 lg:p-8 shadow-xl">
-        <div className="mb-8">
-          <h2 className="text-white text-[18px] font-bold">Visitas de los últimos 30 días</h2>
-          <p className="text-[#8995A9] text-[13px]">Tendencia general de tráfico orgánico y directo</p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h2 className="text-white text-[18px] font-bold">Tráfico Histórico (Últimos 30 días)</h2>
+            <p className="text-[#8995A9] text-[13px]">Evolución diaria de las visitas en toda la web.</p>
+          </div>
         </div>
-        <div className="w-full h-[400px]">
+        <div className="w-full h-[350px]">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
@@ -135,6 +140,66 @@ export default function AnalyticsPage() {
           </ResponsiveContainer>
         </div>
       </div>
+
+      {/* Advanced Metrics Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* Top Pages */}
+        <div className="bg-[#060D1A]/80 border border-[#1A2333] rounded-[24px] p-6 shadow-xl flex flex-col">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-[#00D2FF]/10 rounded-lg">
+              <FileText size={18} className="text-[#00D2FF]" />
+            </div>
+            <h2 className="text-white text-[16px] font-bold">Páginas Más Visitadas</h2>
+          </div>
+          <div className="flex flex-col gap-4 flex-grow">
+            {topPages.length > 0 ? topPages.map((page, index) => (
+              <div key={index} className="flex justify-between items-center bg-[#0B1221] p-3 rounded-xl border border-[#1A2333]/50">
+                <span className="text-[#E2E8F0] text-[14px] font-medium truncate max-w-[70%]">{page.path === '/' ? '/ (Inicio)' : page.path}</span>
+                <span className="bg-[#1A2333] text-white px-3 py-1 rounded-full text-[12px] font-bold">{page.views}</span>
+              </div>
+            )) : <p className="text-[#8995A9] text-sm text-center my-auto">Sin datos suficientes</p>}
+          </div>
+        </div>
+
+        {/* Top Referrers */}
+        <div className="bg-[#060D1A]/80 border border-[#1A2333] rounded-[24px] p-6 shadow-xl flex flex-col">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-[#FABB18]/10 rounded-lg">
+              <Link size={18} className="text-[#FABB18]" />
+            </div>
+            <h2 className="text-white text-[16px] font-bold">Fuentes de Tráfico</h2>
+          </div>
+          <div className="flex flex-col gap-4 flex-grow">
+            {topReferrers.length > 0 ? topReferrers.map((ref, index) => (
+              <div key={index} className="flex justify-between items-center bg-[#0B1221] p-3 rounded-xl border border-[#1A2333]/50">
+                <span className="text-[#E2E8F0] text-[14px] font-medium truncate max-w-[70%]">{ref.referer || 'Directo'}</span>
+                <span className="bg-[#1A2333] text-white px-3 py-1 rounded-full text-[12px] font-bold">{ref.views}</span>
+              </div>
+            )) : <p className="text-[#8995A9] text-sm text-center my-auto">Aún no hay suficientes datos de origen</p>}
+          </div>
+        </div>
+
+        {/* Top Countries */}
+        <div className="bg-[#060D1A]/80 border border-[#1A2333] rounded-[24px] p-6 shadow-xl flex flex-col">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-[#10B981]/10 rounded-lg">
+              <Globe size={18} className="text-[#10B981]" />
+            </div>
+            <h2 className="text-white text-[16px] font-bold">Audiencia por País</h2>
+          </div>
+          <div className="flex flex-col gap-4 flex-grow">
+            {topCountries.length > 0 ? topCountries.map((country, index) => (
+              <div key={index} className="flex justify-between items-center bg-[#0B1221] p-3 rounded-xl border border-[#1A2333]/50">
+                <span className="text-[#E2E8F0] text-[14px] font-medium truncate max-w-[70%]">{country.country || 'Desconocido'}</span>
+                <span className="bg-[#1A2333] text-white px-3 py-1 rounded-full text-[12px] font-bold">{country.views}</span>
+              </div>
+            )) : <p className="text-[#8995A9] text-sm text-center my-auto">Aún no hay suficientes datos de países</p>}
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }
+

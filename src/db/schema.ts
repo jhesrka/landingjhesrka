@@ -47,5 +47,8 @@ export const pageViews = pgTable('page_views', {
   id: serial('id').primaryKey(),
   path: varchar('path', { length: 255 }).notNull(),
   visitorId: varchar('visitor_id', { length: 255 }).notNull(),
+  userAgent: text('user_agent'),
+  referer: varchar('referer', { length: 500 }),
+  country: varchar('country', { length: 100 }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
