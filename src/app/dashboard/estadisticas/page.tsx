@@ -1,45 +1,29 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, LineChart, Line } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import { Activity, Users, Eye, ArrowUpRight } from "lucide-react";
+import { getAnalyticsData } from "./actions";
 
 export default function AnalyticsPage() {
   const [data, setData] = useState<{date: string, views: number}[]>([]);
   const [stats, setStats] = useState({ total: 0, today: 0, unique: 0 });
   const [isLoading, setIsLoading] = useState(true);
 
-  // In a real app we'd fetch from an API route that queries the DB.
-  // For the prompt we'll simulate the dashboard data loading to provide immediate feedback.
   useEffect(() => {
-    // Generate some mock data for the last 30 days
-    const generateMockData = () => {
-      const mockData = [];
-      const now = new Date();
-      let totalViews = 0;
-      for (let i = 29; i >= 0; i--) {
-        const date = new Date(now);
-        date.setDate(date.getDate() - i);
-        const views = Math.floor(Math.random() * 50) + 10;
-        totalViews += views;
-        mockData.push({
-          date: date.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }),
-          views
-        });
+    const fetchData = async () => {
+      try {
+        const result = await getAnalyticsData();
+        setData(result.chartData);
+        setStats(result.stats);
+      } catch (error) {
+        console.error("Error loading analytics:", error);
+      } finally {
+        setIsLoading(false);
       }
-      return { mockData, totalViews };
     };
-
-    setTimeout(() => {
-      const { mockData, totalViews } = generateMockData();
-      setData(mockData);
-      setStats({
-        total: totalViews,
-        today: mockData[mockData.length - 1].views,
-        unique: Math.floor(totalViews * 0.7) // estimate
-      });
-      setIsLoading(false);
-    }, 1000);
+    
+    fetchData();
   }, []);
 
   if (isLoading) {
