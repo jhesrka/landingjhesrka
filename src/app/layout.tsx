@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { CartSidebar } from "@/components/store/CartSidebar";
 import { PageTracker } from "@/components/ui/PageTracker";
+import { AIChatbot } from "@/components/chat/AIChatbot";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -93,6 +94,7 @@ export default function RootLayout({
         <PageTracker />
         {children}
         <CartSidebar />
+        <AIChatbot />
       </body>
     </html>
   );

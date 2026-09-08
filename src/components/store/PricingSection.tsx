@@ -24,12 +24,13 @@ export type PricingPackage = {
 };
 
 interface PricingSectionProps {
+  id?: string;
   title: string;
   icon: React.ReactNode;
   packages: PricingPackage[];
 }
 
-export const PricingSection = ({ title, icon, packages }: PricingSectionProps) => {
+export const PricingSection = ({ id, title, icon, packages }: PricingSectionProps) => {
   const [previewPkg, setPreviewPkg] = useState<PricingPackage | null>(null);
   const [currentGalleryIdx, setCurrentGalleryIdx] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
@@ -177,7 +178,7 @@ export const PricingSection = ({ title, icon, packages }: PricingSectionProps) =
   };
 
   return (
-    <section className="container mx-auto px-4 lg:px-8 max-w-[1400px] mt-16">
+    <section id={id} className="container mx-auto px-4 lg:px-8 max-w-[1400px] mt-16 scroll-mt-24">
       
       {/* Section Header */}
       <div className="flex items-center gap-3 mb-8 pb-4 border-b border-white/10">

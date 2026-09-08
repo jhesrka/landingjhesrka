@@ -169,12 +169,14 @@ export default function TiendaPage() {
         <StoreHero />
         
         <PricingSection 
+          id="paginas-web"
           title="Páginas Web" 
           icon={<MonitorPlay size={20} />} 
           packages={webPackages} 
         />
         
         <PricingSection 
+          id="tiendas-online"
           title="Tiendas Online" 
           icon={<ShoppingCart size={20} />} 
           packages={storePackages} 

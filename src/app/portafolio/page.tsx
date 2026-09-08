@@ -21,7 +21,7 @@ export default function PortfolioPage() {
         {/* Componentes del Portafolio */}
         <PortfolioHero />
         
-        <div className="container mx-auto px-4 lg:px-8 max-w-[1400px] mt-10">
+        <div id="proyectos" className="scroll-mt-24 container mx-auto px-4 lg:px-8 max-w-[1400px] mt-10">
           <PortfolioSection />
           <PortfolioStats />
         </div>

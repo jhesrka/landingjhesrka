@@ -23,7 +23,9 @@ export default function ServiciosPage() {
       <ServicesHero />
       
       {/* 2. Services Grid (Qué podemos desarrollar) */}
-      <ServicesGrid />
+      <div id="servicios-lista" className="scroll-mt-24">
+        <ServicesGrid />
+      </div>
 
       {/* 3. Why Choose Us (Franja de iconos) */}
       <ServicesWhyChooseUs />
