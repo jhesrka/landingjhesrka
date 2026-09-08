@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import Image from "@/components/ui/ImageWithLoader";
 
 export const AIChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);

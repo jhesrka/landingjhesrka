@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { ArrowRight, Code2, Globe, Laptop, LayoutTemplate, ShieldCheck, ShoppingCart, Briefcase, Rocket, X, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import { motion, AnimatePresence } from "framer-motion";
 
 const servicesList = [

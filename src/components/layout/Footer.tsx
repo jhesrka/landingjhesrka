@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { MessageSquare, ArrowRight, Clock, ShieldCheck, Cog, Award, MapPin, Phone, Mail, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import dynamic from "next/dynamic";
 const PopupModal = dynamic(() => import("react-calendly").then(mod => mod.PopupModal), { ssr: false });
 import { useContactForm } from "@/hooks/useContactForm";

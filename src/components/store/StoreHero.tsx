@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import { MessageSquare, ShieldCheck, Truck, ThumbsUp, HeadphonesIcon, ShoppingCart } from "lucide-react";
 import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 

@@ -1,5 +1,5 @@
 import { MapPin, Mail, Phone, Globe } from "lucide-react";
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 
 export const ContactMethods = () => {
   const methods = [

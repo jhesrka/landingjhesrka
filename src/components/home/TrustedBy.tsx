@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 
 const companies = [
   { name: "Atucucho SHOP", logo: "/logoatucucho.png", width: 140 },

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import { ArrowRight, Code2, X, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { useState, useEffect } from "react";
 import { 

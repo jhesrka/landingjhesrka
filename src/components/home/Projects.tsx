@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { db } from "@/db";

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import { MessageSquare, Calendar, Zap, HeadphonesIcon, ShieldCheck } from "lucide-react";
 import { ContactFormAdvanced } from "./ContactFormAdvanced";
 import { WhatsAppLink } from "@/components/ui/WhatsAppLink";

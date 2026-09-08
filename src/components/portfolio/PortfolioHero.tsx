@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import { LayoutGrid, MessageSquare } from "lucide-react";
 
 export const PortfolioHero = () => {

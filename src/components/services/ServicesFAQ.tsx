@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { MessageCircleQuestion, Plus } from "lucide-react";
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 
 const faqs = [
   {

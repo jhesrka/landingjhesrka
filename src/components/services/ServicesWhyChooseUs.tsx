@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import { Code2, Cpu, FileSignature, MonitorSmartphone, ShieldCheck, Zap } from "lucide-react";
 
 const features = [

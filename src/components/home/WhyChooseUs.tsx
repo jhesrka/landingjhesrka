@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 
 import { CheckCircle2 } from "lucide-react";
 import { useEffect, useRef } from "react";

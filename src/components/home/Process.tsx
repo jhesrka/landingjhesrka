@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 
 import { Edit3, PenTool, FileCode2, Rocket, ShieldCheck, Box } from "lucide-react";
 

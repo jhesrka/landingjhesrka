@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import { Plus, Edit2, Trash2, X, Save, Upload } from "lucide-react";
 import { addProject, updateProject, deleteProject } from "./actions";
 

@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 
 // We use simple placeholder components since we can't import SVG logos natively without the files.
 // We will mimic the logos with colored text/shapes to match the structure perfectly.

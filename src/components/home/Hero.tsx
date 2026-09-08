@@ -2,7 +2,7 @@
 
 import { MessageSquare, ArrowRight, Monitor, ShoppingCart, Smartphone, LayoutDashboard, Rocket, Wrench } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import { motion } from "framer-motion";
 import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 

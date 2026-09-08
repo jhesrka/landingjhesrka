@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import { ArrowRight, X, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 
 interface Project {

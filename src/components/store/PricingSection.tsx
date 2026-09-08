@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import { CheckCircle2, XCircle, ShoppingCart, Eye, Heart, X, ChevronLeft, ChevronRight, Crown, Truck } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useState, useEffect } from "react";

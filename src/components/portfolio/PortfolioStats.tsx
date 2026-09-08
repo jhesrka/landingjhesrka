@@ -3,7 +3,7 @@
 import { Briefcase, Users, Star, Rocket } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { useInView, animate } from "framer-motion";
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 
 const stats = [
   { icon: Briefcase, from: 0, to: 150, prefix: "+", suffix: "", title: "Proyectos completados\ncon éxito" },

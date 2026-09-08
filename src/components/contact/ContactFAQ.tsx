@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Image from "@/components/ui/ImageWithLoader";
 import { HelpCircle, Plus, Minus } from "lucide-react";
 
 export const ContactFAQ = () => {
