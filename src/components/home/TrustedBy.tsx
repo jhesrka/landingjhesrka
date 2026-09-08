@@ -5,10 +5,11 @@ import Image from "next/image";
 const companies = [
   { name: "Atucucho SHOP", logo: "/logoatucucho.png", width: 140 },
   { name: "Motrumo", logo: "/logomotrumo.jpg", width: 140 },
-  { name: "Palacios MKT", logo: "/logo-palacios-mkt.png", width: 160 },
+  { name: "Palacios MKT", logo: "/logo-palacios-mkt.png", width: 160, bgWhite: true },
   { name: "Wish Way", logo: "/wishwayec.png", width: 120 },
   { name: "La Hueca", logo: "/logolahueca.jpg", width: 120 },
   { name: "Vermen", logo: "/logovermen.png", width: 140 },
+  { name: "Amifer", logo: "/logo-amifer.webp", width: 140 },
 ];
 
 export const TrustedBy = () => {
@@ -41,32 +42,21 @@ export const TrustedBy = () => {
               </h2>
             </div>
             
-            <div className="flex-1 w-full overflow-hidden relative">
-              {/* Desktop View */}
-              <div className="hidden md:flex items-center justify-between gap-12 overflow-x-auto no-scrollbar py-2 px-4">
-                {companies.map((company, idx) => (
-                  <div key={idx} className="flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-105">
+            <div className="flex-1 w-full overflow-hidden relative flex">
+              {/* Optional: Edge fade gradients for smoother appearance */}
+              <div className="absolute left-0 top-0 bottom-0 w-8 md:w-16 bg-gradient-to-r from-[#050A15] to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-8 md:w-16 bg-gradient-to-l from-[#050A15] to-transparent z-10 pointer-events-none" />
+
+              {/* Infinite Scroll Container for all screens */}
+              <div className="flex w-max animate-infinite-scroll hover:[animation-play-state:paused] py-2">
+                {[...companies, ...companies, ...companies, ...companies].map((company, idx) => (
+                  <div key={idx} className={`flex items-center justify-center flex-shrink-0 mx-6 transition-all duration-300 hover:scale-105 ${company.bgWhite ? 'bg-white p-2 rounded-md' : ''}`}>
                     <Image 
                       src={company.logo} 
                       alt={`Logo de ${company.name}`} 
                       width={company.width} 
                       height={60} 
-                      className="object-contain max-h-[50px] w-auto"
-                    />
-                  </div>
-                ))}
-              </div>
-              
-              {/* Mobile View - Infinite Scroll */}
-              <div className="flex md:hidden w-max animate-infinite-scroll hover:[animation-play-state:paused] py-2">
-                {[...companies, ...companies].map((company, idx) => (
-                  <div key={idx} className="flex items-center justify-center flex-shrink-0 mx-6">
-                    <Image 
-                      src={company.logo} 
-                      alt={`Logo de ${company.name}`} 
-                      width={company.width} 
-                      height={60} 
-                      className="object-contain max-h-[40px] w-auto"
+                      className="object-contain max-h-[40px] md:max-h-[50px] w-auto"
                     />
                   </div>
                 ))}

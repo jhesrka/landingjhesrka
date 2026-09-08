@@ -4,7 +4,7 @@ import Image from "next/image";
 export const ContactMethods = () => {
   const methods = [
     { icon: MapPin, title: "UBICACIÓN", desc: "Quito – Ecuador" },
-    { icon: Mail, title: "CORREO", desc: "hola@jhesrka.dev" },
+    { icon: Mail, title: "CORREO", desc: "jhesrkadeveloper@gmail.com" },
     { icon: Phone, title: "TELÉFONO / WHATSAPP", desc: "+593 99 123 4567" },
     { icon: Globe, title: "SITIO WEB", desc: "www.jhesrka.dev" },
   ];

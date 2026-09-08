@@ -115,15 +115,16 @@ export const Footer = () => {
                 <p className="text-[#8995A9] text-[13px] md:text-[15px] mb-6">
                   Cuéntanos tu proyecto y creemos algo increíble juntos.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-row gap-2 sm:gap-3">
                   <WhatsAppLink 
                     message="Hola Jhesrka Developer, estoy listo para llevar mi negocio al siguiente nivel."
-                    className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-[#FFD700] to-[#FABB18] text-black font-bold text-[12px] md:text-[13px] hover:brightness-110 transition-all shadow-[0_0_25px_rgba(250,187,24,0.3)] w-fit whitespace-nowrap"
+                    className="flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#FFD700] to-[#FABB18] text-black font-bold text-[10px] sm:text-[12px] md:text-[13px] hover:brightness-110 transition-all shadow-[0_0_25px_rgba(250,187,24,0.3)] w-fit whitespace-nowrap"
                   >
-                    <MessageSquare size={16} className="fill-black" />
-                    CHAT WHATSAPP
+                    <MessageSquare size={14} className="fill-black sm:w-4 sm:h-4" />
+                    <span className="hidden sm:inline">CHAT WHATSAPP</span>
+                    <span className="sm:hidden">WHATSAPP</span>
                   </WhatsAppLink>
-                  <button className="flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-transparent border border-[#00D2FF]/50 text-white font-bold text-[12px] md:text-[13px] hover:bg-[#00D2FF]/10 transition-all shadow-[0_0_15px_rgba(0,210,255,0.1)] w-fit whitespace-nowrap">
+                  <button className="flex items-center justify-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-3 sm:py-3.5 rounded-full bg-transparent border border-[#00D2FF]/50 text-white font-bold text-[10px] sm:text-[12px] md:text-[13px] hover:bg-[#00D2FF]/10 transition-all shadow-[0_0_15px_rgba(0,210,255,0.1)] w-fit whitespace-nowrap">
                     COTIZAR AHORA
                   </button>
                 </div>
@@ -273,21 +274,18 @@ export const Footer = () => {
                 <Phone size={16} className="text-white" /> {footerPhone}
               </li>
               <li className="flex items-center gap-3 text-[#8995A9] text-[12px]">
-                <Mail size={16} className="text-white" /> hola@jhesrka.dev
+                <Mail size={16} className="text-white" /> jhesrkadeveloper@gmail.com
               </li>
             </ul>
             <div className="flex items-center gap-4 mt-8">
-              <Link href="#" aria-label="WhatsApp" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
+              <Link href="https://www.tiktok.com/@jhesrkadeveloper?_r=1&_t=ZS-99Z7hI9fQMH" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" /><path d="M15 21V3a3 3 0 0 0 3 3h1a4 4 0 0 1 4 4v1a5 5 0 0 0-5-5H15Z" /></svg>
+              </Link>
+              <Link href="https://www.facebook.com/share/1KEEPD2Usy/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
               </Link>
-              <Link href="#" aria-label="Instagram" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
+              <Link href="https://www.instagram.com/jhesrkadeveloper?utm_source=qr&stkn=MXh5Z3VqeWMwem16Zg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-              </Link>
-              <Link href="#" aria-label="LinkedIn" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-              </Link>
-              <Link href="#" aria-label="Twitter" className="text-[#8995A9] hover:text-[#00D2FF] transition-colors">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
               </Link>
             </div>
           </div>

@@ -105,7 +105,7 @@ const storePackages: PricingPackage[] = [
   {
     id: "store-profesional",
     title: "TIENDA PROFESIONAL",
-    price: 250,
+    price: 350,
     paymentType: "Pago único",
     image: "/destacado1.webp",
     deliveryTime: "Entrega: 7 - 10 días hábiles",
